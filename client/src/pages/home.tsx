@@ -4,6 +4,7 @@ import {
   useTransform, useSpring, useAnimate, useMotionValue, animate as mAnimate
 } from "framer-motion";
 import { Phone, Menu, X, ChevronRight, ArrowUp, CheckCircle, Clock, ChevronDown, Facebook, Youtube, MessageCircle, Star, MapPin } from "lucide-react";
+import PopupSystem, { MAPS_URL } from "@/components/PopupSystem";
 import logoImg from "@assets/image_1773055619309.png";
 import heroImg from "@assets/image_1773056237351.png";
 import fleetImg from "@assets/image_1773055600948.png";
@@ -286,6 +287,7 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", course: "", note: "" });
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [stickyBarActive, setStickyBarActive] = useState(false);
 
   const processRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: processProgress } = useScroll({ target: processRef, offset: ["start 70%", "end 40%"] });
@@ -517,16 +519,29 @@ export default function Home() {
                 </motion.a>
               </motion.div>
 
-              <motion.div className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm"
+              <motion.a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm hover:bg-white/20 transition-colors"
                 style={{ backgroundColor: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.88)" }}
                 initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 2.0, ease: EASE_OUT }}>
                 <MapPin className="w-4 h-4 flex-shrink-0" style={{ color: "#F0A500" }} />
                 1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP.HCM
+              </motion.a>
+
+              {/* GTVT badge — inline on mobile so it doesn't overlap address text */}
+              <motion.div className="mt-4 lg:hidden inline-flex items-center gap-3 bg-white rounded-xl px-4 py-3 shadow-lg"
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ ...SPRING, delay: 2.15 }}>
+                <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: "#C8102E" }} />
+                <div>
+                  <div className="text-xs font-bold" style={{ color: "#1A1A2E" }}>Được Cấp Phép Bộ GTVT</div>
+                  <div className="text-xs" style={{ color: "#6B7280" }}>Thành lập 2009 · Nhà Bè, TP.HCM</div>
+                </div>
               </motion.div>
             </div>
 
-            <motion.div className="absolute bottom-10 right-6 lg:right-16 bg-white rounded-xl px-4 py-3 shadow-lg flex items-center gap-3"
+            {/* GTVT badge — absolute on desktop only */}
+            <motion.div className="hidden lg:flex absolute bottom-10 right-16 bg-white rounded-xl px-4 py-3 shadow-lg items-center gap-3"
               initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
               transition={{ ...SPRING, delay: 2.1 }}>
               <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: "#C8102E" }} />
@@ -725,7 +740,7 @@ export default function Home() {
                   <div className="text-sm font-bold text-white">Cơ Sở Chính</div>
                   <div className="text-sm" style={{ color: "rgba(255,255,255,0.75)" }}>1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP. Hồ Chí Minh</div>
                 </div>
-                <a href="https://maps.google.com/?q=1184+Nguyen+Van+Tao+Long+Thoi+Nha+Be" target="_blank" rel="noopener noreferrer"
+                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
                   className="flex-shrink-0 text-xs font-bold px-4 py-2 rounded-full" style={{ backgroundColor: "#F0A500", color: "#1A1A2E" }}>
                   Xem Bản Đồ
                 </a>
@@ -751,13 +766,15 @@ export default function Home() {
                 <div className="flex items-center gap-2 mb-6 p-4 rounded-xl" style={{ backgroundColor: "#FFF8E6", border: "1px solid #F0A500" }}>
                   <span className="text-sm font-semibold" style={{ color: "#1A1A2E" }}>Lớp tháng 3 sắp đầy — chỉ còn vài chỗ cuối!</span>
                 </div>
-                <div className="flex items-start gap-3 mb-6 p-3 rounded-lg" style={{ backgroundColor: "#F8F6F2" }}>
+                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                  className="flex items-start gap-3 mb-6 p-3 rounded-lg hover:opacity-80 transition-opacity"
+                  style={{ backgroundColor: "#F8F6F2" }}>
                   <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "#C8102E" }} />
                   <div>
                     <div className="text-sm font-bold" style={{ color: "#1A1A2E" }}>Địa Điểm Học</div>
                     <div className="text-sm" style={{ color: "#6B7280" }}>1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP.HCM</div>
                   </div>
-                </div>
+                </a>
                 <motion.a href="#contact" className="inline-flex items-center gap-2 font-bold rounded-full px-8 py-3"
                   style={{ backgroundColor: "#C8102E", color: "white" }}
                   whileHover={{ scale: 1.03, boxShadow: "0 6px 24px rgba(200,16,46,0.35)" }}
@@ -891,14 +908,16 @@ export default function Home() {
                     </motion.li>
                   ))}
                 </ul>
-                <div className="flex items-start gap-3 p-4 rounded-xl" style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
+                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                  className="flex items-start gap-3 p-4 rounded-xl hover:opacity-90 transition-opacity"
+                  style={{ backgroundColor: "rgba(255,255,255,0.15)" }}>
                   <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5 text-white" />
                   <div>
                     <div className="text-sm font-bold text-white">Đến Gặp Chúng Tôi</div>
                     <div className="text-sm text-white/80">1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP.HCM</div>
                     <div className="text-sm text-white/80 mt-1">Điện thoại: <strong>1900 636 836</strong></div>
                   </div>
-                </div>
+                </a>
               </FadeUp>
 
               <motion.div initial={{ opacity: 0, y: -24, rotate: 1.5 }} whileInView={{ opacity: 1, y: 0, rotate: 0 }}
@@ -1064,13 +1083,14 @@ export default function Home() {
               </FadeUp>
               <FadeUp delay={0.1}>
                 <h4 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: "#F0A500" }}>Địa Chỉ</h4>
-                <div className="flex items-start gap-2 mb-3">
+                <a href={MAPS_URL} target="_blank" rel="noopener noreferrer"
+                  className="flex items-start gap-2 mb-3 hover:opacity-80 transition-opacity">
                   <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#C8102E" }} />
                   <div>
                     <div className="text-xs font-semibold text-white mb-1">Cơ Sở Chính</div>
                     <div className="text-xs" style={{ color: "rgba(255,255,255,0.65)" }}>1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP. Hồ Chí Minh</div>
                   </div>
-                </div>
+                </a>
                 <div className="mt-4 space-y-1">
                   <div className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>Hotline: <span className="text-white font-semibold">1900 636 836</span></div>
                   <div className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>dangkyhoc@trungtamthanhcong.vn</div>
@@ -1139,12 +1159,14 @@ export default function Home() {
           )}
         </AnimatePresence>
 
+        <PopupSystem formSubmitted={formSubmitted} onStickyChange={setStickyBarActive} />
+
         {/* ══════════ SCROLL TO TOP ══════════ */}
         <AnimatePresence>
           {showScrollTop && (
             <motion.button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="fixed right-4 bottom-6 w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-40"
-              style={{ backgroundColor: "#1A1A2E", color: "white" }}
+              className="fixed right-4 w-12 h-12 rounded-full flex items-center justify-center shadow-lg z-40"
+              style={{ backgroundColor: "#1A1A2E", color: "white", bottom: stickyBarActive ? "80px" : "24px", transition: "bottom 0.3s ease" }}
               initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}
               transition={SPRING}
               whileHover={{ scale: 1.1 }}

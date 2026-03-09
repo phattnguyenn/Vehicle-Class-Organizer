@@ -1,0 +1,477 @@
+# 🎯 PROMPT POPUP CHUYỂN ĐỔI CAO — TRUNG TÂM LÁI XE THÀNH CÔNG
+
+---
+
+> DÁN TOÀN BỘ VÀO V0 — TẠO POPUP COMPONENT RIÊNG TÍCH HỢP VÀO LANDING PAGE
+
+---
+
+Tạo một hệ thống **3 loại popup** cho landing page Thành Công. Không có giảm giá, không có khuyến mãi. Chỉ dùng **sự khan hiếm thật + giá trị thật + tâm lý sợ bỏ lỡ (FOMO)**. Đây là popup có tỉ lệ chuyển đổi cao nhất trong ngành đào tạo — mỗi chữ đều được cân nhắc để tạo hành động.
+
+---
+
+## 🎨 BỘ NHẬN DIỆN MÀU SẮC ĐỒNG BỘ
+
+```css
+--mau-chinh:   #C8102E   /* Đỏ Crimson */
+--mau-phu:     #1A1A2E   /* Navy đậm */
+--mau-nhan:    #F0A500   /* Vàng Gold */
+--nen-trang:   #FFFFFF
+--nen-kem:     #F8F6F2
+--chu-mo:      #6B7280
+--vien:        #E5E0D8
+```
+
+---
+
+## ═══════════════════════════════
+## POPUP 1 — "SẮP HẾT CHỖ" (Trigger chính)
+## Xuất hiện sau 25 giây ở trang hoặc khi scroll 60%
+## ═══════════════════════════════
+
+```
+KÍCH THƯỚC: 520px rộng — modal giữa màn hình
+NỀN OVERLAY: rgba(26,26,46,0.75) + backdrop-blur(4px)
+ANIMATION VÀO: scale(0.85) opacity(0) → scale(1) opacity(1), spring 300ms
+
+──────────────────────────────────────────────
+             THIẾT KẾ POPUP
+──────────────────────────────────────────────
+
+┌─────────────────────────────────────────────┐
+│  [Thanh trên — nền đỏ #C8102E, padding 12px]│
+│  🔴 ● ● ●  Chỉ còn 3 chỗ cho lớp tháng 3  │
+│           [3 chấm nhấp nháy đỏ liên tục]   │
+├─────────────────────────────────────────────┤
+│                                             │
+│  [Góc phải trên: nút ✕ — nhỏ, màu xám]    │
+│                                             │
+│  [Icon đồng hồ cát hoặc lịch — màu vàng]  │
+│                                             │
+│  [H2 — Playfair Display, 28px, navy]       │
+│  "Lớp Tháng 3 Đang                         │
+│   Được Lấp Đầy"                            │
+│                                             │
+│  [Thanh tiến trình — trực quan hóa chỗ còn]│
+│  ████████████████████░░░  22/25 học viên   │
+│  [Màu đỏ fill, phần còn lại màu xám nhạt]  │
+│  Văn bản nhỏ dưới: "Còn đúng 3 chỗ trống" │
+│                                             │
+│  [Đường kẻ phân cách]                      │
+│                                             │
+│  [Văn bản thuyết phục — 15px, navy]        │
+│  "Mỗi tháng chúng tôi chỉ nhận             │
+│  giới hạn 25 học viên để đảm bảo           │
+│  chất lượng đào tạo 1-1 với giáo viên.     │
+│  Khi đủ chỗ — lớp đóng ngay."             │
+│                                             │
+│  [3 dòng giá trị — icon ✓ màu vàng]       │
+│  ✓ Thực hành cùng giáo viên riêng          │
+│  ✓ Tỷ lệ đậu sát hạch 92% ngay lần đầu   │
+│  ✓ Khai giảng 10/03 — học ngay tuần tới   │
+│                                             │
+│  [Bộ đếm ngược — nền kem #F8F6F2]         │
+│  ┌────────┬────────┬────────┬────────┐     │
+│  │  00    │  23    │  47    │  12    │     │
+│  │ Ngày   │  Giờ  │  Phút  │  Giây  │     │
+│  └────────┴────────┴────────┴────────┘     │
+│  Văn bản: "Đến khi lớp tháng 3 khai giảng"│
+│                                             │
+│  [INPUT — số điện thoại, full width]       │
+│  Placeholder: "Số điện thoại của bạn"      │
+│  Border: 2px solid #E5E0D8                 │
+│  Focus: border-color #C8102E + glow đỏ     │
+│  Height: 52px, border-radius: 10px         │
+│                                             │
+│  [NÚT CTA — full width, height 56px]       │
+│  Nền: #F0A500 (vàng gold)                  │
+│  Chữ: "GIỮ CHỖ CỦA TÔI NGAY →"          │
+│  Font: Be Vietnam Pro, 16px, bold          │
+│  Border-radius: 10px                       │
+│  Shimmer animation liên tục mỗi 2.5s       │
+│                                             │
+│  [Văn bản nhỏ dưới nút — màu xám]         │
+│  "🔒 Không mất phí — Tư vấn viên          │
+│  liên hệ trong 30 phút"                   │
+│                                             │
+│  [Link từ chối — rất nhỏ, màu xám nhạt]   │
+│  "Tôi không cần học lái xe lúc này"        │
+│  (khi click: popup đóng lại)               │
+│                                             │
+└─────────────────────────────────────────────┘
+
+ANIMATION THANH TIẾN TRÌNH:
+  → Khi popup mở: fill từ 0% → 88% trong 1200ms easing OutExpo
+  → Tạo cảm giác "đang xem live" số chỗ bị lấp đầy
+
+BỘ ĐẾM NGƯỢC:
+  → JavaScript đếm ngược thật đến ngày 10/03/2026 00:00:00
+  → Mỗi giây cập nhật — số giây có flip animation (rotateX)
+  → Nếu đã qua ngày đó: tự động hiện lớp tháng tiếp theo
+
+3 CHẤM NHẤP NHÁY (trên thanh đỏ):
+  → Pulse animation: opacity 1 → 0.3 → 1, 1.5s loop
+  → Tạo cảm giác thông báo đang "sống"
+```
+
+---
+
+## ═══════════════════════════════
+## POPUP 2 — "EXIT INTENT" (Khi chuột ra khỏi tab)
+## Trigger: mouseleave trên document (desktop)
+## Trigger mobile: scroll ngược lên > 200px nhanh
+## ═══════════════════════════════
+
+```
+KÍCH THƯỚC: 480px — compact hơn popup 1
+ANIMATION VÀO: slideDown từ -100px opacity(0) → 0 opacity(1), 400ms
+
+──────────────────────────────────────────────
+THIẾT KẾ — TONE: Giữ chân, không van xin
+──────────────────────────────────────────────
+
+┌─────────────────────────────────────────────┐
+│                          [✕ nhỏ góc phải]  │
+│                                             │
+│  [Ảnh minh họa nhỏ — xe đỏ Thành Công      │
+│   hoặc sân tập — height 140px, object-fit] │
+│  [Overlay gradient đen ở dưới ảnh]         │
+│  [Trên ảnh, badge vàng góc trái:]          │
+│  "⚡ 3 chỗ cuối tháng 3"                   │
+│                                             │
+│  [H3 — Playfair, 24px, navy, căn giữa]    │
+│  "Khoan đã —"                              │
+│  "Bạn Sắp Bỏ Lỡ Lớp Học Tháng 3"        │
+│                                             │
+│  [Văn bản — 14px, màu xám, căn giữa]      │
+│  "Người đăng ký hôm nay sẽ được           │
+│  xếp lớp trước. Chỉ 3 chỗ còn lại —      │
+│  khi hết là phải đợi sang tháng 4."       │
+│                                             │
+│  [2 nút xếp dọc]                           │
+│                                             │
+│  NÚT 1 — full width, nền đỏ #C8102E       │
+│  "Giữ Chỗ Cho Tôi →"                      │
+│  height: 50px                              │
+│                                             │
+│  NÚT 2 — full width, nền trong suốt       │
+│  viền #E5E0D8, chữ xám                    │
+│  "Tôi sẽ đợi đến tháng 4"                 │
+│  [Tâm lý: ai muốn tự nhận mình "đợi"?]   │
+│                                             │
+└─────────────────────────────────────────────┘
+
+LƯU Ý TÂM LÝ HỌC:
+  → Nút từ chối viết thẳng hậu quả "Tôi sẽ đợi đến tháng 4"
+  → Không viết "Không cảm ơn" hay "Đóng"
+  → Người dùng tự đọc hậu quả → tự cảm thấy không muốn chọn
+
+TRIGGER RULES:
+  → Chỉ hiện 1 lần per session (sessionStorage)
+  → Không hiện nếu Popup 1 đã được submit thành công
+  → Desktop: mouseleave khi Y < 10px (chuột lên thanh tab)
+  → Mobile: scroll velocity âm > 50px trong 100ms
+```
+
+---
+
+## ═══════════════════════════════
+## POPUP 3 — "STICKY BOTTOM BAR" (Luôn hiển thị)
+## Không phải popup che màn hình — thanh dưới cùng cố định
+## ═══════════════════════════════
+
+```
+THIẾT KẾ: Thanh ngang cố định dưới cùng màn hình
+HEIGHT: 64px desktop / 72px mobile
+NỀN: #1A1A2E (navy đậm)
+XUẤT HIỆN: Sau khi scroll qua hero section (> 400px)
+ANIMATION VÀO: slideUp từ translateY(100%) — 400ms
+
+──────────────────────────────────────────────
+LAYOUT DESKTOP (flex row, space-between):
+──────────────────────────────────────────────
+
+[Trái]                    [Giữa]              [Phải]
+🔴 Chỉ còn 3 chỗ    |  Lớp khai giảng    |  [NÚT ĐỎ]
+   tháng 3           |  10/03/2026        |  Đăng Ký Ngay →
+   [chữ trắng 14px]  |  [đếm ngược nhỏ]  |  [pill button]
+
+──────────────────────────────────────────────
+LAYOUT MOBILE (2 dòng):
+──────────────────────────────────────────────
+Dòng 1: "🔴 Còn 3 chỗ • Lớp 10/03 • Khai giảng sau 5 ngày"
+Dòng 2: [NÚT ĐỎ FULL WIDTH] "Đăng Ký Giữ Chỗ Ngay"
+
+ANIMATION ĐỎ PULSE trên chữ "3 chỗ":
+  → Chữ "3" có màu vàng gold, font-weight 800
+  → Pulse: text-shadow 0 0 8px rgba(240,165,0,0.8) — 2s loop
+
+NÚT BÊN PHẢI:
+  → Nền: #C8102E, chữ trắng, border-radius 999px
+  → Hover: scale 1.05, shadow đỏ
+  → Click: mở Popup 1 (không phải link mới)
+
+ĐÓNG/ẨN:
+  → Nút ✕ nhỏ ở cạnh phải thanh
+  → Khi đóng: slideDown biến mất, không hiện lại trong session
+  → Không hiện trên trang /thank-you hoặc sau khi submit form
+```
+
+---
+
+## ═══════════════════════════════
+## LOGIC ĐIỀU PHỐI 3 POPUP
+## ═══════════════════════════════
+
+```javascript
+// Thứ tự ưu tiên và quy tắc không chồng chéo:
+
+const popupRules = {
+
+  // STICKY BAR — luôn hiện sau scroll 400px
+  // Trừ khi: đã submit form thành công
+  stickyBar: {
+    trigger: 'scroll > 400px',
+    hideAfter: 'form_submitted',
+    storage: 'none' // luôn hiện mỗi lần vào trang
+  },
+
+  // POPUP 1 — popup chính
+  // Chỉ hiện 1 trong 2 điều kiện đầu tiên đạt được
+  mainPopup: {
+    trigger: ['time_on_page > 25s', 'scroll > 60%'],
+    showFirst: true, // điều kiện nào đạt trước thì hiện
+    frequency: 'once_per_session',
+    storage: 'sessionStorage',
+    dontShowIf: 'form_submitted'
+  },
+
+  // POPUP EXIT — chỉ sau khi Popup 1 đã hiện và bị đóng
+  exitPopup: {
+    trigger: ['mouse_exit_top', 'scroll_up_fast_mobile'],
+    prerequisite: 'mainPopup_was_shown AND mainPopup_was_closed',
+    frequency: 'once_per_session',
+    storage: 'sessionStorage',
+    dontShowIf: 'form_submitted'
+  }
+}
+
+// Sau khi submit form thành công:
+// 1. Tất cả popup ẩn ngay lập tức
+// 2. localStorage.setItem('tc_registered', 'true')
+// 3. Không hiện popup trong 30 ngày
+```
+
+---
+
+## ═══════════════════════════════
+## TRẠNG THÁI SAU KHI SUBMIT
+## ═══════════════════════════════
+
+```
+KHI NHẤN NÚT "GIỮ CHỖ" / "ĐĂNG KÝ NGAY":
+
+BƯỚC 1 — Loading (300ms):
+  → Nút: text biến mất, spinner trắng xoay
+  → Input bị disabled
+  → Không cho submit lại
+
+BƯỚC 2 — Success animation (trong popup):
+  → Toàn bộ nội dung form: fadeOut 200ms
+  → Thay bằng màn hình thành công:
+
+┌─────────────────────────────────────────────┐
+│                                             │
+│         [Vòng tròn xanh lá ✓]              │
+│     [Draw animation SVG checkmark]          │
+│                                             │
+│  [H3 — Playfair, navy]                     │
+│  "Đã Giữ Chỗ Thành Công!"                 │
+│                                             │
+│  [Văn bản — 15px]                          │
+│  "Tư vấn viên sẽ gọi cho bạn              │
+│  trong vòng 30 phút."                      │
+│                                             │
+│  [Thông tin tóm tắt — nền kem]             │
+│  📅 Lớp khai giảng: 10/03/2026            │
+│  📍 Cơ sở: 1184 Nguyễn Văn Tạo, Nhà Bè  │
+│  📞 Hotline: 1900 636 836                  │
+│                                             │
+│  [Confetti nhỏ bắn ra từ checkmark]        │
+│  [20 hạt màu đỏ/vàng/trắng, 1.5s]        │
+│                                             │
+│  [Nút đóng — sau 3 giây tự hiện]          │
+│  "Đóng lại"                                │
+│                                             │
+└─────────────────────────────────────────────┘
+```
+
+---
+
+## ═══════════════════════════════
+## ANIMATION CHI TIẾT TỪNG POPUP
+## ═══════════════════════════════
+
+```javascript
+// POPUP 1 — Main Popup
+const mainPopupVariants = {
+  hidden: { 
+    scale: 0.85, 
+    opacity: 0,
+    y: 20
+  },
+  visible: { 
+    scale: 1, 
+    opacity: 1,
+    y: 0,
+    transition: { 
+      type: 'spring',
+      stiffness: 300,
+      damping: 25
+    }
+  },
+  exit: {
+    scale: 0.9,
+    opacity: 0,
+    y: -20,
+    transition: { duration: 0.2 }
+  }
+}
+
+// OVERLAY
+const overlayVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.3 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } }
+}
+
+// THANH TIẾN TRÌNH (chỗ còn)
+// Animate khi popup vừa mở:
+const progressVariants = {
+  hidden: { scaleX: 0 },
+  visible: {
+    scaleX: 0.88, // 22/25 chỗ = 88%
+    transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }
+  }
+}
+
+// SỐ ĐẾM NGƯỢC — flip animation mỗi giây
+// CSS cho flip:
+// .digit { animation: flip 0.3s ease when value changes }
+// @keyframes flip {
+//   0%   { transform: rotateX(0deg) }
+//   50%  { transform: rotateX(-90deg) }
+//   100% { transform: rotateX(0deg) }
+// }
+
+// STICKY BAR — slideUp khi xuất hiện
+const stickyBarVariants = {
+  hidden: { y: '100%' },
+  visible: { 
+    y: 0,
+    transition: { type: 'spring', stiffness: 200, damping: 30 }
+  },
+  exit: {
+    y: '100%',
+    transition: { duration: 0.3 }
+  }
+}
+```
+
+---
+
+## ═══════════════════════════════
+## NỘI DUNG COPYWRITING — TỪNG CHỮ CÓ MỤC ĐÍCH
+## ═══════════════════════════════
+
+```
+NGUYÊN TẮC VIẾT COPY POPUP NÀY:
+  → Không một chữ nào đề cập đến giảm giá hay ưu đãi
+  → Chỉ dùng 3 đòn tâm lý: Khan hiếm + Khẩn cấp + Giá trị
+  → Số liệu thật: 3 chỗ, 10/03, 92%, 25 năm
+
+HEADLINE POPUP 1:
+  ✓ DÙNG: "Lớp Tháng 3 Đang Được Lấp Đầy"
+  ✗ KHÔNG: "Đừng Bỏ Lỡ Cơ Hội" (quá cũ)
+  ✗ KHÔNG: "Ưu Đãi Đặc Biệt" (không có)
+  Lý do: Nói về SỰ THẬT đang xảy ra, không phải lời kêu gọi trống rỗng
+
+THANH TIẾN TRÌNH:
+  ✓ DÙNG: "22/25 học viên • Còn đúng 3 chỗ"
+  Lý do: Số cụ thể tạo tin tưởng hơn "sắp hết chỗ" chung chung
+
+NÚT CTA:
+  ✓ DÙNG: "Giữ Chỗ Của Tôi Ngay →"
+  ✗ KHÔNG: "Đăng Ký" (quá nhàm)
+  ✗ KHÔNG: "Liên Hệ Ngay" (không rõ hành động)
+  Lý do: "Của Tôi" tạo cảm giác sở hữu — user đang giành lấy thứ thuộc về họ
+
+NÚT TỪ CHỐI POPUP EXIT:
+  ✓ DÙNG: "Tôi sẽ đợi đến tháng 4"
+  ✗ KHÔNG: "Không, cảm ơn"
+  Lý do: Buộc người dùng đọc hậu quả cụ thể của việc không đăng ký
+
+DÒNG DƯỚI NÚT SUBMIT:
+  ✓ DÙNG: "🔒 Không mất phí — Tư vấn viên liên hệ trong 30 phút"
+  Lý do: Xóa bỏ rào cản cuối cùng — sợ bị tốn tiền hay bị làm phiền mãi
+
+LINK TỪ CHỐI POPUP 1:
+  ✓ DÙNG: "Tôi không cần học lái xe lúc này"
+  Lý do: Ai thực sự không cần thì thôi, ai đang do dự sẽ nghĩ lại
+```
+
+---
+
+## ═══════════════════════════════
+## YÊU CẦU KỸ THUẬT
+## ═══════════════════════════════
+
+```
+Framework: React + TypeScript
+Animation: Framer Motion (AnimatePresence cho mount/unmount)
+State: Zustand hoặc Context API cho trạng thái popup toàn cục
+Storage: sessionStorage cho "đã xem", localStorage cho "đã đăng ký"
+
+Form submit:
+  → Gọi POST /api/register hoặc Formspree endpoint
+  → Loading state trên nút
+  → Error handling: "Có lỗi xảy ra, vui lòng thử lại"
+  → Success: hiện màn hình cảm ơn trong popup (không redirect)
+
+Responsive:
+  → Popup 1 & 2: max-width 520px, trên mobile: bottom sheet
+    (slide up từ dưới, 90% chiều cao màn hình, có handle kéo)
+  → Sticky bar: điều chỉnh layout theo breakpoint
+
+Accessibility:
+  → Focus trap khi popup mở (Tab chỉ đi trong popup)
+  → Escape key đóng popup
+  → aria-modal="true", role="dialog"
+  → aria-label cho nút đóng ✕
+
+Performance:
+  → Lazy load popup components (dynamic import)
+  → Không load cho đến khi trigger điều kiện
+  → Preload khi idle (requestIdleCallback)
+```
+
+---
+
+## ✅ KẾT QUẢ CẦN ĐẠT
+
+```
+Tỉ lệ chuyển đổi mục tiêu:
+  → Sticky bar click-through: 4–8%
+  → Popup 1 submit: 12–18%
+  → Exit popup submit: 6–10%
+
+Cảm giác người dùng:
+  → KHÔNG cảm thấy bị làm phiền (vì popup có thông tin thật, có giá trị thật)
+  → CẢM THẤY may mắn vì biết còn chỗ
+  → TỰ NGUYỆN điền số điện thoại vì sợ mất chỗ — không phải vì bị ép
+
+Khác biệt với popup thông thường:
+  → Không xin email (rào cản cao) — chỉ xin số điện thoại (hành động tức thời)
+  → Không hứa hẹn ưu đãi giả — chỉ nói sự thật về số chỗ còn
+  → Không che màn hình ngay khi vào trang — đợi 25 giây (người dùng đã có interest)
+```
