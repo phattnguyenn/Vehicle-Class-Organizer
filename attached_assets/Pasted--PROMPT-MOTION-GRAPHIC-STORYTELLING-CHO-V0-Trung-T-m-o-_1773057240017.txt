@@ -1,0 +1,575 @@
+# 🎬 PROMPT MOTION GRAPHIC & STORYTELLING CHO V0
+## Trung Tâm Đào Tạo Lái Xe Thành Công
+
+---
+
+> **DÁN TOÀN BỘ NỘI DUNG NÀY VÀO V0 — ĐÂY LÀ BẢN NÂNG CẤP MOTION GRAPHIC CHO TRANG ĐÃ CÓ**
+
+---
+
+Nâng cấp toàn bộ landing page Thành Công hiện tại bằng hệ thống **motion graphic storytelling cao cấp** — mỗi section khi scroll vào phải kể một mảnh câu chuyện, tạo cảm giác người dùng đang **"đi qua hành trình"** từ chưa biết gì → tin tưởng → đăng ký. Không dùng animation rẻ tiền hay template sẵn. Mọi chuyển động phải có **mục đích kể chuyện**.
+
+Sử dụng **Framer Motion** cho toàn bộ animation. **GSAP ScrollTrigger** cho các parallax nặng. CSS custom keyframes cho micro-interaction.
+
+---
+
+## 🎭 TRIẾT LÝ MOTION — ĐỌC TRƯỚC KHI CODE
+
+```
+Nguyên tắc vàng:
+  → Chuyển động = Ý nghĩa. Mỗi animation phải nói lên điều gì đó.
+  → Không animation nào chạy chỉ để "trông đẹp" mà không có lý do.
+  → Tốc độ: Nhanh vào (200-300ms) — Chậm ra (400-600ms) — Easing: cubic-bezier(0.16, 1, 0.3, 1)
+  → Stagger giữa các phần tử: 80ms — đủ để mắt theo dõi, không gây chóng mặt
+  → Mobile: Giảm 40% độ phức tạp animation, giữ nguyên cảm xúc
+
+Scroll trigger ngưỡng kích hoạt: 
+  → Animation bắt đầu khi phần tử đã vào 15% viewport
+  → Không replay khi scroll lên lại (once: true) — tránh mệt mỏi thị giác
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 1 — THANH ĐIỀU HƯỚNG
+## ═══════════════════════════════════
+
+```
+HIỆU ỨNG CUỘN TRANG (Scroll-aware Nav):
+
+Trạng thái ban đầu (đầu trang):
+  - Nền: hoàn toàn trong suốt
+  - Logo + chữ: màu navy #1A1A2E
+  - Chiều cao: 80px
+
+Khi cuộn xuống > 50px — transition mượt 300ms:
+  - Nền: rgba(255,255,255,0.92) + backdrop-blur(20px)
+  - Thêm border-bottom: 1px solid rgba(229,224,216,0.6)
+  - box-shadow: 0 2px 20px rgba(0,0,0,0.06)
+  - Chiều cao co lại: 64px (logo thu nhỏ 10%)
+
+Hiệu ứng xuất hiện lần đầu (page load):
+  - Logo: fade + slideDown từ -20px, delay 0ms
+  - Từng nav link: fade + slideDown, stagger 60ms mỗi link
+  - Nút CTA: fade + scale từ 0.9, delay 400ms
+  - Tổng thời gian xuất hiện nav: 700ms
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 2 — HERO SECTION (Kể chuyện mở đầu)
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Câu chuyện bắt đầu bằng một hình ảnh mạnh — 
+           rồi chữ xuất hiện như đang được viết ra cho riêng bạn"
+
+── ANIMATION CHUỖI (Timeline, chạy tuần tự khi page load) ──
+
+[0ms]     Màn hình tối hoàn toàn — overlay đen phủ toàn trang
+[0-400ms] Overlay đen fade out từ trên xuống dưới (wipe effect)
+          → Ảnh sân tập xe hiện ra — nhưng vẫn grayscale + blur(8px)
+
+[400ms]   Ảnh: filter chuyển từ grayscale(100%) blur(8px) 
+          → grayscale(0%) blur(0px) trong 600ms
+          → Đồng thời: ảnh scale từ 1.05 → 1.0 (Ken Burns effect)
+          → Lớp phủ đỏ 15% opacity fade vào
+
+[600ms]   Nhãn "ĐÀO TẠO LÁI XE" màu vàng:
+          → clipPath từ "inset(0 100% 0 0)" → "inset(0 0% 0 0)"
+          → Hiệu ứng chữ bị "kéo ra" từ bên trái — 300ms
+
+[800ms]   H1 "Hành Trình Đến Bằng Lái Xe":
+          → Mỗi DÒNG chữ là 1 đơn vị animation riêng
+          → Dòng 1: slideUp từ translateY(60px) opacity(0) → 0 opacity(1) — 500ms
+          → Dòng 2: delay 120ms, cùng effect
+          → Dòng 3: delay 240ms, cùng effect
+          → Font-weight animate từ 300 → 700 trong khi slide (nếu variable font)
+
+[1300ms]  Đoạn văn mô tả:
+          → Từng từ fade in với stagger 20ms mỗi từ
+          → Tạo hiệu ứng chữ đang "được gõ ra" nhưng mượt hơn typewriter
+
+[1600ms]  Hàng số liệu (15+ năm / 92% / 4 cơ sở):
+          → Ba khối: slideUp stagger 100ms
+          → Số đếm từ 0 lên: 15 → đếm trong 1200ms easing OutExpo
+                              0 → 92 đếm trong 1200ms
+                              0 → 4 đếm trong 800ms
+          → Đường kẻ phân cách scale từ 0 → 1 (scaleX)
+
+[1900ms]  Hai nút CTA:
+          → Nút đỏ: scale từ 0.8 opacity 0 → 1 opacity 1, spring animation
+          → Nút vàng: delay 120ms, cùng hiệu ứng
+
+[2100ms]  Huy hiệu "Được Cấp Phép Bộ GTVT":
+          → Slide up từ dưới ảnh + bounce nhẹ khi đến vị trí
+
+── HIỆU ỨNG PARALLAX LIÊN TỤC KHI SCROLL ──
+  → Ảnh bên phải: di chuyển chậm hơn scroll 30% (translateY = scrollY * 0.3)
+  → Tạo chiều sâu 3D giữa text và ảnh
+  → Nhãn vàng: di chuyển ngược chiều scroll 10% (parallax ngược)
+
+── MICRO-INTERACTION NÚT CTA ──
+  Nút "Đăng Ký Học Ngay" khi hover:
+  → Background fill animation từ trái sang phải (::before pseudo)
+  → Arrow (→) dịch chuyển sang phải 6px + bounce
+  → Box-shadow mở rộng: 0 8px 30px rgba(200,16,46,0.4)
+  → Scale: 1 → 1.03 — transition 200ms
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 3 — THANH UY TÍN (Social Proof Bar)
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Những con số đập vào mắt ngay lập tức — không thể bỏ qua"
+
+Khi scroll đến phần này:
+  → Toàn bộ thanh navy: clipPath wipe từ trái sang phải trong 600ms
+  → Từng thông tin ★: fade + slideRight với stagger 80ms
+  → Dấu ★ màu vàng: scale từ 0 → 1.2 → 1.0 (overshoot spring)
+
+Hiệu ứng marquee ticker (nền navy):
+  → Chạy liên tục sang trái — tốc độ 30s per cycle
+  → Dừng hoàn toàn khi hover
+  → Fade mask hai bên: mask-image gradient transparent → black → transparent
+  → Khi page visibility thay đổi (tab ẩn): dừng animation để tiết kiệm CPU
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 4 — KHÓA HỌC (Cards Storytelling)
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Ba lựa chọn — mỗi thẻ tự giới thiệu mình theo thứ tự"
+
+Khi scroll vào section:
+  → Tiêu đề: chữ "Chọn Hạng Bằng Lái" — animate từng ký tự
+    Mỗi ký tự: translateY(100%) → translateY(0) với stagger 30ms
+    Container có overflow:hidden → tạo hiệu ứng chữ "mọc lên từ dưới đất"
+
+  → Ba thẻ card xuất hiện tuần tự:
+    Thẻ 1 (B Tự Động): slideUp từ translateY(80px) delay 0ms
+    Thẻ 2 (B Cơ Khí):  slideUp từ translateY(80px) delay 150ms  
+    Thẻ 3 (C1):        slideUp từ translateY(80px) delay 300ms
+    → Kết hợp opacity 0 → 1
+
+  → Ảnh trong thẻ: scale từ 1.1 → 1.0 cùng lúc slide (parallax trong card)
+
+── HOVER STATE THẺ CARD (tinh tế, có chủ đích) ──
+  → Card: translateY(-8px) trong 250ms — cảm giác "nâng lên"
+  → Box-shadow: 0 20px 60px rgba(200,16,46,0.15)
+  → Viền trái đỏ: scaleY từ 0 → 1 xuất phát từ trên xuống — 300ms
+  → Ảnh: scale 1.0 → 1.05 — 400ms ease
+  → Chữ "Tìm Hiểu Thêm →": 
+    Arrow dịch phải 6px
+    Underline mở rộng từ trái sang phải (::after scaleX)
+  → Màu tiêu đề: #C8102E → đậm hơn 15%
+
+── ACTIVE STATE KHI CLICK ──
+  → Scale: 0.97 trong 100ms rồi trả về — cảm giác "nhấn vật lý"
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 5 — QUY TRÌNH 8 BƯỚC (Storytelling cao nhất)
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Đây là trái tim của trang — người dùng phải CẢM NHẬN 
+           được hành trình, không chỉ đọc nó"
+
+── THIẾT KẾ LẠI HOÀN TOÀN — TIMELINE SCROLL-DRIVEN ──
+
+Thay vì grid 8 ô tĩnh → Chuyển thành TIMELINE NGANG CÓ ANIMATION:
+
+Cấu trúc:
+  [Đường kẻ ngang chạy suốt — màu #E5E0D8]
+  [Đường kẻ đỏ tiến triển — animate theo scroll]
+  [8 node tròn trên đường kẻ]
+  [Nội dung xuất hiện bên trên/dưới xen kẽ]
+
+SCROLL-DRIVEN PROGRESS LINE:
+  → Khi user scroll qua section này
+  → Đường đỏ dài ra từ trái sang phải tỉ lệ với vị trí scroll
+  → useScroll() + useTransform() của Framer Motion
+  → scaleX từ 0 → 1 với transformOrigin: "left center"
+
+TỪNG NODE KÍCH HOẠT KHI SCROLL ĐẾN:
+  Node chưa active: 
+    - Vòng tròn navy nhạt, số màu xám
+    - Content bên dưới: opacity 0.3
+  
+  Node active (đường đỏ vừa chạm đến):
+    - Vòng tròn: scale 1 → 1.3 → 1 (pulse) + đổi sang màu đỏ
+    - Glow effect: box-shadow 0 0 0 0 → 0 0 20px rgba(200,16,46,0.4)
+    - Số: đổi sang trắng
+    - Content: fadeIn + slideUp từ 20px
+
+  → Tạo cảm giác: "con đường đang được mở ra trước mắt bạn"
+
+MOBILE (< 768px) — Vertical Timeline:
+  → Đường kẻ chạy dọc bên trái
+  → Mỗi bước scroll vào: slide từ phải sang, node pulse
+  → Đường đỏ dọc tiến triển theo scroll
+
+── HIỆU ỨNG ĐẶC BIỆT BƯỚC 8 "THI SÁT HẠCH" ──
+  → Khi đường đỏ chạm node cuối:
+  → Confetti nhỏ bắn ra từ node (20 hạt, màu đỏ/vàng/trắng)
+  → Node 8: glow mạnh hơn, scale lớn hơn
+  → Text "Thi Sát Hạch": màu vàng gold thay vì navy
+  → Tạo cảm giác: "Bạn đã đến đích!"
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 6 — TẠI SAO CHỌN THÀNH CÔNG (Dark Section)
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Nền tối = Sự khẳng định mạnh mẽ — 
+           Ba lý do xuất hiện như ba đòn thuyết phục"
+
+Khi scroll vào section navy đậm:
+  → Background: fade in từ transparent → #1A1A2E đồng thời wipe từ dưới lên
+  → Hiệu ứng "curtain raise" — nền tối kéo lên như màn sân khấu
+
+Tiêu đề "Tại Sao Hơn 10.000 Học Viên...":
+  → Highlight "10.000" bằng animation đặc biệt:
+    Số đếm từ 0 → 10.000 trong 2000ms với easing OutExpo
+    Màu: trắng → vàng gold khi đếm xong
+    Underline vàng mở rộng dưới số
+
+Ba thẻ icon xuất hiện:
+  → Thẻ 1: slideIn từ trái
+  → Thẻ 2: slideUp từ dưới  
+  → Thẻ 3: slideIn từ phải
+  → Stagger 150ms — tạo hiệu ứng "ba mũi tên vào"
+
+Biểu tượng icon trong mỗi thẻ:
+  → Draw animation: SVG stroke-dasharray animate từ 0 → 100%
+  → Màu: xám → vàng gold khi animation hoàn thành
+  → Duration: 800ms per icon, stagger 200ms
+
+Hover từng thẻ:
+  → Background: rgba(255,255,255,0.05) → rgba(255,255,255,0.1)
+  → Border: 1px solid rgba(240,165,0,0.3) → rgba(240,165,0,0.8)
+  → Icon: rotate 10deg rồi trả về — 300ms spring
+  → Transform: translateY(-4px)
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 7 — LỊCH KHAI GIẢNG
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Tạo sự khẩn cấp — mỗi hàng trong bảng xuất hiện 
+           như đang được cập nhật real-time"
+
+Khi scroll vào:
+  → Tiêu đề bên trái: slideRight từ translateX(-60px)
+  → Thẻ bảng bên phải: slideLeft từ translateX(60px) + slight rotation 2deg → 0
+
+Từng hàng trong bảng lịch khai giảng:
+  → Xuất hiện tuần tự từ trên xuống — stagger 100ms
+  → Mỗi hàng: clipPath "inset(0 100% 0 0)" → "inset(0 0% 0 0)"
+  → Tạo hiệu ứng "dữ liệu đang được load vào"
+
+Badge trạng thái "Còn chỗ ✓" / "Sắp đầy ⚠":
+  → Pulse animation liên tục cho "Sắp đầy":
+    box-shadow: 0 0 0 0 rgba(240,165,0,0.4) → 0 0 0 8px rgba(240,165,0,0)
+    Lặp mỗi 2s — tạo cảm giác thực sự sắp đầy
+  → "Còn chỗ": checkmark SVG draw animation khi xuất hiện
+
+Nút "Đăng Ký Lớp Này":
+  → Shimmer effect liên tục: gradient sáng chạy qua nút mỗi 3s
+  → background: linear-gradient(90deg, #C8102E 0%, #E8304E 50%, #C8102E 100%)
+  → background-size: 200% — animate background-position
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 8 — CẢM NHẬN HỌC VIÊN
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Người thật nói chuyện thật — animation phải tạo 
+           cảm giác đang nghe câu chuyện của ai đó"
+
+Khi scroll vào:
+  → Tiêu đề: từng từ slideUp với stagger 40ms
+
+Ba thẻ cảm nhận:
+  → Không xuất hiện đồng thời — xuất hiện như đang "lật thẻ"
+  → Thẻ 1: rotateY từ -15deg opacity(0) → 0deg opacity(1) — 500ms
+  → Thẻ 2: delay 200ms, cùng effect
+  → Thẻ 3: delay 400ms, cùng effect
+  → perspective: 1000px trên container
+
+Dấu ngoặc mở đầu quote "":
+  → Scale từ 0.3 opacity(0) → 1 opacity(1) với spring bounce
+  → Màu: nhạt → đỏ crimson
+
+Ngôi sao ★★★★★:
+  → Từng ngôi sao fill từ trái sang phải — stagger 60ms
+  → Scale: 0 → 1.3 → 1 (overshoot)
+  → Màu: xám → vàng gold
+
+Hover thẻ:
+  → translateY(-6px)
+  → Box-shadow tăng
+  → Viền trái đỏ scaleY từ 30% → 100%
+  → Quote text: color subtle shift
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 9 — GALLERY ẢNH HOẠT ĐỘNG
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Ảnh thực tế = bằng chứng — 
+           mỗi ảnh reveal như đang mở ra một cánh cửa"
+
+Thiết kế lại thành Masonry Grid (thay vì 2 cột đều nhau):
+  Cột trái: ảnh cao (xe đỏ trên sân)
+  Cột phải trên: ảnh ngang (nhiều xe)  
+  Cột phải dưới: ảnh ngang (sân tập rộng)
+
+Hiệu ứng reveal từng ảnh:
+  → Wrapper div có overflow:hidden
+  → Ảnh bên trong scale(1.3) — translateY(-5%)
+  → Khi scroll vào: wrapper clipPath mở ra từ dưới lên "inset(100% 0 0 0)" → "inset(0% 0 0 0)"
+  → Đồng thời ảnh bên trong: scale(1.3) → scale(1.0) + translateY(-5%) → translateY(0)
+  → Duration: 800ms cubic-bezier(0.76, 0, 0.24, 1)
+  → Stagger: 150ms giữa các ảnh
+
+Parallax khi scroll:
+  → Mỗi ảnh di chuyển với tốc độ khác nhau khi scroll
+  → Ảnh 1: translateY = scrollDelta * 0.1
+  → Ảnh 2: translateY = scrollDelta * 0.2
+  → Ảnh 3: translateY = scrollDelta * 0.15
+  → Tạo chiều sâu 3D cho gallery
+
+Hover từng ảnh:
+  → Scale: 1.03
+  → Overlay xuất hiện: gradient đen 0% → 30%
+  → Icon phóng to ↗ xuất hiện ở góc phải trên
+  → Duration: 300ms
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 10 — FORM ĐĂNG KÝ (CTA đỏ)
+## ═══════════════════════════════════
+
+```
+TRIẾT LÝ: "Màu đỏ = Hành động — 
+           section này phải tạo cảm giác KHẨN CẤP nhưng không áp lực"
+
+Transition vào section đỏ:
+  → Khi section gần vào viewport (threshold 0.1):
+  → Background đỏ: clipPath "ellipse(0% 0% at 50% 100%)" → "ellipse(150% 150% at 50% 100%)"
+  → Duration: 800ms — tạo hiệu ứng đỏ "phồng ra" từ đáy màn hình
+
+Text bên trái xuất hiện:
+  → Nhãn "BẮT ĐẦU NGAY HÔM NAY": wipe từ trái
+  → H2 từng dòng: slideUp stagger 100ms
+  → Ba điểm ✓: slideRight stagger 80ms, checkmark draw animation
+
+Form card bên phải:
+  → Drop xuống từ translateY(-30px) opacity(0) → 0 opacity(1)
+  → Rotation nhẹ: 2deg → 0deg
+  → Spring animation với stiffness: 200, damping: 20
+
+Từng input field trong form:
+  → Focus state: border-color animate + glow xuất hiện
+  → Label float: transform lên trên khi focus (floating label pattern)
+  → Validation success: checkmark xuất hiện bên phải field + border xanh
+
+Nút "ĐĂNG KÝ NGAY →":
+  → Shimmer gold liên tục mỗi 2.5s
+  → Hover: scale 1.02, shadow vàng mạnh hơn
+  → Click: scale 0.96 → loading spinner xuất hiện
+  → Success: button transform thành "✓ Đã Nhận Đăng Ký" + confetti nhỏ
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 11 — ĐỐI TÁC (Marquee)
+## ═══════════════════════════════════
+
+```
+Tiêu đề xuất hiện:
+  → Nhãn vàng: scale từ 0 + fade — 300ms spring
+  → H2: từng chữ slideUp stagger 25ms
+  → Phụ đề: fade in delay 400ms
+
+Dải logo marquee:
+  → Chạy liên tục sang trái — 30s linear infinite
+  → Fade mask hai bên: mask-image gradient
+  → Hover toàn bộ dải: animation-play-state: paused
+  → Từng logo hover riêng: grayscale(100%) → grayscale(0%), scale 1 → 1.1
+
+Khi scroll đến lần đầu:
+  → Toàn bộ dải: từ opacity(0) scale(0.95) → opacity(1) scale(1)
+  → Duration: 500ms
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 12 — FOOTER
+## ═══════════════════════════════════
+
+```
+Khi scroll đến footer:
+  → 4 cột: slideUp stagger 100ms
+  → Logo TC: rotate từ -180deg → 0deg (vòng tròn xoay vào vị trí) — 600ms spring
+
+Link hover trong footer:
+  → translateX(4px) — dịch nhẹ sang phải
+  → Color: #6B7280 → trắng
+  → Underline mở rộng từ trái
+
+Social icons:
+  → Hover: scale 1.2 + rotate(15deg) — 200ms spring
+  → Background: fill vào từ trong ra
+```
+
+---
+
+## ═══════════════════════════════════
+## PHẦN 13 — CÁC PHẦN TỬ NỔI & TOÀN TRANG
+## ═══════════════════════════════════
+
+```
+── SMOOTH SCROLL TOÀN TRANG ──
+  → Dùng Lenis.js cho smooth scroll toàn bộ trang
+  → Easing: lerp 0.1 — mượt tự nhiên như cuộn trên iOS
+  → Tích hợp với Framer Motion useScroll
+
+── NÚT NỔI BÊN PHẢI ──
+  Xuất hiện lần đầu:
+  → Mỗi nút slideIn từ phải với stagger 100ms
+  → delay 2000ms sau khi trang load
+  
+  Hover từng nút:
+  → Scale: 1.0 → 1.15
+  → Tooltip text xuất hiện bên trái: fade + slideLeft 6px
+  → Box-shadow mở rộng
+
+  Nút cuộn lên ↑:
+  → Chỉ xuất hiện sau khi scroll 300px
+  → Xuất hiện: scale 0 → 1 spring
+  → Biến mất: scale 1 → 0
+  → Hover: arrow bounce lên xuống
+
+── CURSOR EFFECT (Desktop only) ──
+  → Custom cursor: vòng tròn 40px, navy 20% opacity
+  → Theo chuột với lag nhẹ (lerp 0.15) — cảm giác "kéo theo"
+  → Hover link/button: cursor expand 60px + fill đỏ 30%
+  → Hover ảnh: cursor đổi thành icon ↗ phóng to
+
+── PAGE TRANSITION LOADING ──
+  Khi trang load lần đầu:
+  → Logo Thành Công xuất hiện giữa màn hình đen
+  → Spin vòng loading 800ms
+  → Màn hình wipe lên: "curtain opens" từ giữa ra hai bên
+  → Tổng thời gian loading screen: 1200ms
+  → Chỉ hiện lần đầu (sessionStorage flag)
+
+── SCROLL PROGRESS BAR ──
+  → Thanh đỏ mỏng 3px chạy dọc theo cạnh trên trang
+  → Dài ra theo tỉ lệ scroll: 0% → 100%
+  → scaleX với transformOrigin: "left"
+  → Opacity: 0 khi ở đầu trang → 1 khi scroll > 100px
+```
+
+---
+
+## ⚙️ YÊU CẦU KỸ THUẬT CHO MOTION
+
+```javascript
+// Các thư viện cần import:
+import { motion, useScroll, useTransform, 
+         useSpring, useInView, AnimatePresence } from 'framer-motion'
+import Lenis from '@studio-freight/lenis'  // smooth scroll
+// GSAP chỉ dùng cho parallax nặng nếu cần
+
+// Cấu hình easing chuẩn dùng toàn trang:
+const EASING = [0.16, 1, 0.3, 1]        // easeOutExpo
+const SPRING = { stiffness: 200, damping: 20 }
+const SPRING_SOFT = { stiffness: 100, damping: 15 }
+
+// Variants tái sử dụng:
+const fadeUpVariant = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { opacity: 1, y: 0, 
+    transition: { duration: 0.6, ease: EASING } }
+}
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } }
+}
+
+// Hook useInView với margin:
+const ref = useRef(null)
+const isInView = useInView(ref, { once: true, margin: "-15%" })
+
+// Lenis setup:
+const lenis = new Lenis({ lerp: 0.1, smooth: true })
+// Tích hợp với Framer Motion scroll events
+
+// Hiệu suất:
+→ will-change: transform — chỉ thêm khi animation đang chạy, xóa sau khi xong
+→ transform3d thay vì top/left cho mọi animation vị trí
+→ AnimatePresence bao toàn bộ trang cho page transitions
+→ Giảm motion nếu: prefers-reduced-motion: reduce
+   → Tắt parallax, giảm duration 50%, giữ fade cơ bản
+```
+
+---
+
+## 🚫 TUYỆT ĐỐI KHÔNG LÀM VỚI ANIMATION:
+```
+✗ Không dùng animation mà không có useInView — tránh animation chạy ngoài màn hình
+✗ Không bounce quá nhiều — chỉ dùng spring cho CTA và icon, không cho text
+✗ Không animate color cho đoạn văn dài — gây mất tập trung
+✗ Không loop animation trừ: marquee, shimmer, pulse badge "sắp đầy"
+✗ Không animate layout (width/height) — dùng transform thay thế
+✗ Không dùng JavaScript animation cho thứ CSS có thể làm được
+✗ Không quên: prefers-reduced-motion media query
+```
+
+---
+
+## ✅ KẾT QUẢ CẦN ĐẠT ĐƯỢC:
+
+```
+Khi một người lạ vào trang lần đầu:
+→ 0-3 giây: Bị ảnh + animation hero thu hút, đọc headline
+→ 3-8 giây: Scroll xuống, thanh navy đập vào mắt với số liệu 
+→ 8-20 giây: Xem 3 khóa học, cảm thấy thông tin rõ ràng
+→ 20-40 giây: Timeline 8 bước — cảm thấy "à, đơn giản thế thôi"
+→ 40-60 giây: Section navy với 3 lý do — bắt đầu tin tưởng
+→ 60-90 giây: Xem lịch, đọc cảm nhận, xem ảnh — TIN HOÀN TOÀN
+→ 90 giây+: Form đỏ xuất hiện — tay tự động điền vào
+
+Cảm giác tổng thể: Đây không phải website trung tâm lái xe bình thường.
+Đây là một tổ chức chuyên nghiệp, đáng tin, xứng đáng với số tiền bỏ ra.
+```
