@@ -307,10 +307,31 @@ export default function Home() {
     setLoadingDone(true);
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitting(true);
-    setTimeout(() => { setFormSubmitting(false); setFormSubmitted(true); }, 1000);
+    try {
+      const res = await fetch("https://formspree.io/f/myknkpjk", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          course: formData.course,
+          message: formData.note,
+        }),
+      });
+      if (res.ok) {
+        setFormSubmitted(true);
+      } else {
+        alert("Có lỗi xảy ra. Vui lòng thử lại hoặc gọi 1900 636 836.");
+      }
+    } catch {
+      alert("Không thể kết nối. Vui lòng thử lại sau.");
+    } finally {
+      setFormSubmitting(false);
+    }
   };
 
   return (
