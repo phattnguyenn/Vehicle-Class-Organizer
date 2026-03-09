@@ -1,13 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Phone, Menu, X, ChevronRight, ArrowUp, CheckCircle, MapPin, Clock, Users, Award, Star, ChevronDown, Facebook, Youtube, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Phone, Menu, X, ChevronRight, ArrowUp, CheckCircle, Clock, ChevronDown, Facebook, Youtube, MessageCircle, Star, MapPin } from "lucide-react";
 import logoImg from "@assets/image_1773055619309.png";
-import heroCarImg from "@assets/image_1773055587732.png";
+import heroImg from "@assets/image_1773056237351.png";
 import fleetImg from "@assets/image_1773055600948.png";
 import bAutoImg from "@assets/image_1773055631232.png";
 import bManualImg from "@assets/image_1773055627297.png";
 import c1Img from "@assets/image_1773055623145.png";
+import partnerNhaBe from "@assets/image_1773056136813.png";
+import partnerThanhDanh from "@assets/image_1773056140838.png";
+import partnerThaiSon from "@assets/image_1773056146795.png";
+import partnerThienTai from "@assets/image_1773056150642.png";
+import partnerDayNghe from "@assets/image_1773056154584.png";
+import partnerThongNhat from "@assets/image_1773056159700.png";
+import partnerTD from "@assets/image_1773056164314.png";
 
 const NAV_LINKS = [
   { label: "Trang Chủ", href: "#home" },
@@ -77,19 +83,22 @@ const STEPS = [
   { num: "08", title: "Thi Sát Hạch", desc: "Thi tại Trung tâm sát hạch, nhận bằng lái xe ngay sau khi đậu" },
 ];
 
-const PILLARS = [
-  { icon: Award, title: "Cơ Sở Vật Chất Hiện Đại", desc: "Sân tập đạt chuẩn Bộ GTVT, trang bị cabin điện tử mô phỏng, xe học đời mới nhất" },
-  { icon: Users, title: "Đội Ngũ Giáo Viên Giàu Kinh Nghiệm", desc: "100% giáo viên có chứng chỉ hành nghề quốc gia, kinh nghiệm giảng dạy trên 5 năm" },
-  { icon: Star, title: "Tỷ Lệ Đậu Sát Hạch Cao", desc: "Hơn 92% học viên đậu sát hạch ngay lần thi đầu tiên — chúng tôi cam kết chất lượng" },
-  { icon: MapPin, title: "4 Cơ Sở Thuận Tiện", desc: "Nhà Bè, Tân Bình, Quận 4 — dễ dàng tiếp cận từ mọi quận trong TP.HCM" },
+const PARTNERS = [
+  { img: partnerNhaBe, name: "Trung Tâm Dạy Nghề Nhà Bè" },
+  { img: partnerThanhDanh, name: "Thành Danh" },
+  { img: partnerThaiSon, name: "Thai Son Group" },
+  { img: partnerThienTai, name: "Thiên Tài" },
+  { img: partnerDayNghe, name: "Trung Tâm Dạy Nghề" },
+  { img: partnerThongNhat, name: "Thống Nhất" },
+  { img: partnerTD, name: "Trung Tâm DN & ĐT Lái Xe" },
 ];
 
 const SCHEDULE = [
-  { date: "10/03", type: "B Tự Động", branch: "CS 1 - Nhà Bè", status: "available" },
-  { date: "15/03", type: "B Cơ Khí", branch: "CS 2 - Nhà Bè", status: "available" },
-  { date: "20/03", type: "C1", branch: "CS 1 - Nhà Bè", status: "almost" },
-  { date: "25/03", type: "B Tự Động", branch: "CS 3 - Tân Bình", status: "available" },
-  { date: "01/04", type: "B Cơ Khí", branch: "CS 4 - Quận 4", status: "available" },
+  { date: "10/03", type: "B Tự Động", branch: "1184 Nguyễn Văn Tạo", status: "available" },
+  { date: "15/03", type: "B Cơ Khí", branch: "1184 Nguyễn Văn Tạo", status: "available" },
+  { date: "20/03", type: "C1", branch: "1184 Nguyễn Văn Tạo", status: "almost" },
+  { date: "25/03", type: "B Tự Động", branch: "1184 Nguyễn Văn Tạo", status: "available" },
+  { date: "01/04", type: "B Cơ Khí", branch: "1184 Nguyễn Văn Tạo", status: "available" },
 ];
 
 const TESTIMONIALS = [
@@ -97,26 +106,26 @@ const TESTIMONIALS = [
     stars: 5,
     quote: "Tôi đã thử học ở chỗ khác nhưng trượt sát hạch. Chuyển sang Thành Công — đậu ngay lần đầu. Giáo viên tận tình và chuyên nghiệp lắm.",
     name: "Nguyễn Thị Lan",
-    info: "Học viên Hạng B Tự Động · CS Nhà Bè",
+    info: "Học viên Hạng B Tự Động · Nhà Bè",
   },
   {
     stars: 5,
     quote: "Cabin điện tử mô phỏng thực sự giúp ích rất nhiều. Khi ra sân thật mình đã tự tin hơn hẳn so với các bạn chưa học cabin. Cảm ơn Thành Công.",
     name: "Trần Văn Minh",
-    info: "Học viên Hạng B Cơ Khí · CS Tân Bình",
+    info: "Học viên Hạng B Cơ Khí · Nhà Bè",
   },
   {
     stars: 5,
     quote: "Hỗ trợ hồ sơ từ A đến Z, đăng ký nhanh, lịch học linh hoạt. Trung tâm đáng tin cậy nhất TP.HCM mà tôi từng gặp trong hơn 15 năm hoạt động.",
     name: "Phạm Thị Hoa",
-    info: "Học viên Hạng C1 · CS Quận 4",
+    info: "Học viên Hạng C1 · Nhà Bè",
   },
 ];
 
 const NEWS = [
   {
     category: "Sự Kiện",
-    title: "Khai giảng lớp học lái xe tháng 3/2026 tại 4 cơ sở",
+    title: "Khai giảng lớp học lái xe tháng 3/2026 tại 1184 Nguyễn Văn Tạo",
     excerpt: "Trung tâm Thành Công thông báo lịch khai giảng các lớp B tự động, B cơ khí và C1 trong tháng 3...",
     date: "05/03/2026",
   },
@@ -142,17 +151,59 @@ const NEWS = [
 
 function FadeUp({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 28 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
     </motion.div>
+  );
+}
+
+/* ── BRAND SVG ICONS ── */
+function IconFacility({ size = 28 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <rect x="4" y="20" width="40" height="24" rx="3" fill="#C8102E" />
+      <rect x="10" y="26" width="8" height="8" rx="1" fill="white" opacity="0.9" />
+      <rect x="22" y="26" width="8" height="8" rx="1" fill="white" opacity="0.9" />
+      <rect x="34" y="26" width="6" height="8" rx="1" fill="white" opacity="0.9" />
+      <path d="M2 22 L24 6 L46 22" stroke="#F0A500" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <rect x="20" y="34" width="8" height="10" rx="1" fill="#F0A500" />
+      <circle cx="38" cy="12" r="5" fill="#F0A500" />
+      <path d="M38 9v3l2 1.5" stroke="#1A1A2E" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function IconTeacher({ size = 28 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="18" stroke="#C8102E" strokeWidth="3" fill="none" />
+      <circle cx="24" cy="24" r="10" stroke="#1A1A2E" strokeWidth="2.5" fill="none" />
+      <circle cx="24" cy="24" r="3.5" fill="#C8102E" />
+      <line x1="24" y1="6" x2="24" y2="14" stroke="#F0A500" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="24" y1="34" x2="24" y2="42" stroke="#F0A500" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="6" y1="24" x2="14" y2="24" stroke="#F0A500" strokeWidth="2.5" strokeLinecap="round" />
+      <line x1="34" y1="24" x2="42" y2="24" stroke="#F0A500" strokeWidth="2.5" strokeLinecap="round" />
+      <circle cx="24" cy="7" r="2" fill="#F0A500" />
+    </svg>
+  );
+}
+
+function IconPassRate({ size = 28 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 48 48" fill="none">
+      <path d="M24 4 L28 16 L42 16 L31 25 L35 38 L24 30 L13 38 L17 25 L6 16 L20 16 Z" fill="#F0A500" stroke="#C8102E" strokeWidth="1.5" strokeLinejoin="round" />
+      <circle cx="24" cy="22" r="7" fill="#C8102E" />
+      <path d="M20 22 L23 25 L29 19" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M10 42 Q24 36 38 42" stroke="#1A1A2E" strokeWidth="2" strokeLinecap="round" fill="none" />
+    </svg>
   );
 }
 
@@ -166,7 +217,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 40);
       setShowScrollTop(window.scrollY > 300);
     };
     window.addEventListener("scroll", handleScroll);
@@ -187,14 +238,25 @@ export default function Home() {
 
       {/* STICKY NAV */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white shadow-md" : "bg-transparent"}`}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          backgroundColor: scrolled ? "white" : "rgba(26,26,46,0.72)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.10)" : "none",
+        }}
         data-testid="header-nav"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20 gap-4">
             {/* Logo */}
             <a href="#home" className="flex items-center flex-shrink-0" data-testid="link-logo">
-              <img src={logoImg} alt="Thành Công Logo" className="h-10 lg:h-12 w-auto object-contain" />
+              <img
+                src={logoImg}
+                alt="Thành Công Logo"
+                className="h-10 lg:h-12 w-auto object-contain transition-all duration-300"
+                style={{ filter: scrolled ? "none" : "brightness(0) invert(1)" }}
+              />
             </a>
 
             {/* Desktop Nav */}
@@ -203,8 +265,8 @@ export default function Home() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-sm font-medium transition-colors hover:text-red-600"
-                  style={{ color: scrolled ? "#1A1A2E" : "#1A1A2E" }}
+                  className="text-sm font-semibold transition-colors"
+                  style={{ color: scrolled ? "#1A1A2E" : "rgba(255,255,255,0.92)" }}
                   data-testid={`link-nav-${link.label.toLowerCase().replace(/\s/g, "-")}`}
                 >
                   {link.label}
@@ -217,7 +279,10 @@ export default function Home() {
               <a
                 href="tel:1900636836"
                 className="flex items-center gap-2 text-sm font-semibold border-2 rounded-full px-4 py-2 transition-all"
-                style={{ borderColor: "#C8102E", color: "#C8102E" }}
+                style={{
+                  borderColor: scrolled ? "#C8102E" : "rgba(255,255,255,0.7)",
+                  color: scrolled ? "#C8102E" : "white",
+                }}
                 data-testid="link-phone-nav"
               >
                 <Phone className="w-4 h-4" />
@@ -239,6 +304,7 @@ export default function Home() {
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               data-testid="button-mobile-menu"
               aria-label="Toggle mobile menu"
+              style={{ color: scrolled ? "#1A1A2E" : "white" }}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -289,20 +355,14 @@ export default function Home() {
 
       {/* SECTION 1 — HERO */}
       <section id="home" className="relative min-h-screen flex items-center pt-16 lg:pt-20 overflow-hidden">
-        {/* Background image */}
         <div className="absolute inset-0 z-0">
-          <img src={heroCarImg} alt="Xe thực hành lái xe Thành Công" className="w-full h-full object-cover object-center" />
-          <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(26,26,46,0.92) 0%, rgba(26,26,46,0.75) 55%, rgba(26,26,46,0.4) 100%)" }} />
+          <img src={heroImg} alt="Đội xe thực hành Trung Tâm Thành Công" className="w-full h-full object-cover object-center" />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, rgba(26,26,46,0.93) 0%, rgba(26,26,46,0.78) 50%, rgba(26,26,46,0.45) 100%)" }} />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 lg:py-24">
           <div className="max-w-2xl">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-4"
-            >
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mb-4">
               <span className="inline-block text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full" style={{ backgroundColor: "#F0A500", color: "#1A1A2E" }}>
                 Đào Tạo Lái Xe
               </span>
@@ -328,7 +388,6 @@ export default function Home() {
               Hơn 15 năm kinh nghiệm đào tạo, tỷ lệ đậu sát hạch trên 92%. Chúng tôi không chỉ dạy lái xe — chúng tôi xây dựng những người lái xe an toàn cho TP.HCM.
             </motion.p>
 
-            {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -338,7 +397,7 @@ export default function Home() {
               {[
                 { val: "15+", label: "Năm Kinh Nghiệm" },
                 { val: "92%", label: "Tỷ Lệ Đậu Sát Hạch" },
-                { val: "4", label: "Cơ Sở TP.HCM" },
+                { val: "10K+", label: "Học Viên Tốt Nghiệp" },
               ].map((s) => (
                 <div key={s.val} className="text-center">
                   <div className="font-mono text-3xl font-bold" style={{ color: "#F0A500" }}>{s.val}</div>
@@ -371,9 +430,20 @@ export default function Home() {
                 <ChevronDown className="w-5 h-5" style={{ color: "#F0A500" }} />
               </a>
             </motion.div>
+
+            {/* Address badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
+              className="mt-8 inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm"
+              style={{ backgroundColor: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", color: "rgba(255,255,255,0.88)" }}
+            >
+              <MapPin className="w-4 h-4 flex-shrink-0" style={{ color: "#F0A500" }} />
+              1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP.HCM
+            </motion.div>
           </div>
 
-          {/* Trust badge */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -383,22 +453,22 @@ export default function Home() {
             <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: "#C8102E" }} />
             <div>
               <div className="text-xs font-bold" style={{ color: "#1A1A2E" }}>Được Cấp Phép Bộ GTVT</div>
-              <div className="text-xs" style={{ color: "#6B7280" }}>Thành lập 2009 · TP.HCM</div>
+              <div className="text-xs" style={{ color: "#6B7280" }}>Thành lập 2009 · Nhà Bè, TP.HCM</div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* SECTION 2 — TRUST BAR */}
+      {/* TRUST BAR */}
       <div className="py-4 overflow-hidden" style={{ backgroundColor: "#1A1A2E" }}>
-        <div className="flex whitespace-nowrap animate-[marquee_30s_linear_infinite]">
+        <div className="flex whitespace-nowrap animate-marquee">
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex items-center gap-8 pr-8">
               {[
                 "Thành lập 2009 — 15+ năm hoạt động",
                 "Được cấp phép Sở GTVT TP.HCM",
                 "Hơn 10.000 học viên đã tốt nghiệp",
-                "4 cơ sở tại Nhà Bè, Tân Bình, Quận 4",
+                "1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè",
                 "Tỷ lệ đậu sát hạch trên 92%",
               ].map((item, j) => (
                 <span key={j} className="inline-flex items-center gap-2 text-sm text-white font-medium">
@@ -432,15 +502,13 @@ export default function Home() {
             {COURSES.map((course, i) => (
               <FadeUp key={course.id} delay={i * 0.1}>
                 <div
-                  className={`group rounded-xl overflow-hidden transition-all duration-300 cursor-pointer ${course.highlight ? "" : "border border-gray-200"}`}
+                  className="group rounded-xl overflow-hidden transition-all duration-300 cursor-pointer"
                   style={{
                     backgroundColor: "white",
-                    boxShadow: course.highlight ? "0 8px 32px rgba(200,16,46,0.15), 0 0 0 2px #C8102E" : "0 2px 12px rgba(0,0,0,0.07)",
-                    transition: "box-shadow 0.3s, transform 0.3s",
+                    boxShadow: course.highlight ? "0 8px 32px rgba(200,16,46,0.18), 0 0 0 2px #C8102E" : "0 2px 12px rgba(0,0,0,0.07)",
                   }}
                   data-testid={`card-course-${course.id}`}
                 >
-                  {/* Image */}
                   <div className="relative overflow-hidden h-48">
                     <img
                       src={course.img}
@@ -453,14 +521,10 @@ export default function Home() {
                         {course.badge}
                       </div>
                     )}
-                    {/* Red left accent on hover */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: "#C8102E" }} />
                   </div>
-
                   <div className="p-6">
                     <h3 className="font-serif text-xl font-bold mb-1" style={{ color: "#1A1A2E" }}>{course.title}</h3>
                     <p className="text-sm mb-4" style={{ color: "#6B7280" }}>{course.subtitle}</p>
-
                     <ul className="space-y-2 mb-5">
                       {course.features.map((f, j) => (
                         <li key={j} className="flex items-start gap-2 text-sm" style={{ color: "#374151" }}>
@@ -469,7 +533,6 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                       <div className="flex items-center gap-1.5 text-sm" style={{ color: "#6B7280" }}>
                         <Clock className="w-4 h-4" />
@@ -511,19 +574,15 @@ export default function Home() {
             {STEPS.map((step, i) => (
               <FadeUp key={step.num} delay={i * 0.07}>
                 <div
-                  className="group relative p-6 rounded-xl cursor-default hover-elevate transition-all duration-300"
+                  className="group relative p-6 rounded-xl cursor-default transition-all duration-300"
                   style={{ backgroundColor: "#F8F6F2", border: "1px solid #E5E0D8" }}
                 >
                   <div
-                    className="w-12 h-12 rounded-full flex items-center justify-center font-mono text-sm font-bold mb-4 transition-colors duration-300"
+                    className="w-12 h-12 rounded-full flex items-center justify-center font-mono text-sm font-bold mb-4"
                     style={{ backgroundColor: "#1A1A2E", color: "#F0A500" }}
                   >
                     {step.num}
                   </div>
-                  {/* connector line */}
-                  {i % 4 !== 3 && (
-                    <div className="hidden lg:block absolute top-11 left-[calc(100%_-_0px)] w-6 h-0.5 z-10" style={{ backgroundColor: "#F0A500" }} />
-                  )}
                   <h4 className="font-semibold text-base mb-2 group-hover:text-red-600 transition-colors" style={{ color: "#1A1A2E" }}>
                     {step.title}
                   </h4>
@@ -535,25 +594,84 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PARTNERS MARQUEE */}
+      <section className="py-12 overflow-hidden" style={{ backgroundColor: "#F8F6F2", borderTop: "1px solid #E5E0D8", borderBottom: "1px solid #E5E0D8" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
+          <FadeUp>
+            <span className="inline-block text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full mb-3" style={{ backgroundColor: "#F0A500", color: "#1A1A2E" }}>
+              Đối Tác & Liên Kết
+            </span>
+            <p className="text-base" style={{ color: "#6B7280" }}>Được tin tưởng và hợp tác bởi các đơn vị hàng đầu trong ngành đào tạo lái xe</p>
+          </FadeUp>
+        </div>
+
+        {/* Scrolling logos — duplicated for seamless loop */}
+        <div className="relative">
+          {/* fade edges */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #F8F6F2, transparent)" }} />
+          <div className="absolute right-0 top-0 bottom-0 w-16 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #F8F6F2, transparent)" }} />
+
+          <div className="flex animate-marquee" style={{ width: "max-content" }}>
+            {[...PARTNERS, ...PARTNERS].map((p, i) => (
+              <div
+                key={i}
+                className="group flex-shrink-0 flex items-center justify-center mx-8 transition-all duration-300"
+                style={{ width: "100px" }}
+                title={p.name}
+              >
+                <img
+                  src={p.img}
+                  alt={p.name}
+                  className="h-16 w-auto object-contain transition-all duration-300"
+                  style={{
+                    filter: "grayscale(100%) opacity(0.55)",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.filter = "grayscale(0%) opacity(1)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.filter = "grayscale(100%) opacity(0.55)")}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* SECTION 5 — WHY CHOOSE US */}
       <section className="py-20 lg:py-28" style={{ backgroundColor: "#1A1A2E" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <FadeUp>
-            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-white text-center mb-14">
-              Tại Sao Hơn 10.000 Học Viên<br />
-              <span style={{ color: "#F0A500" }}>Tin Chọn Thành Công?</span>
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-white text-center mb-4">
+              Tại Sao Hơn 10.000 Học Viên
+            </h2>
+            <h2 className="font-serif text-4xl lg:text-5xl font-bold text-center mb-14" style={{ color: "#F0A500" }}>
+              Tin Chọn Thành Công?
             </h2>
           </FadeUp>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {PILLARS.map((p, i) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {[
+              {
+                Icon: IconFacility,
+                title: "Cơ Sở Vật Chất Hiện Đại",
+                desc: "Sân tập đạt chuẩn Bộ GTVT tại 1184 Nguyễn Văn Tạo, trang bị cabin điện tử mô phỏng, đội xe học đời mới nhất",
+              },
+              {
+                Icon: IconTeacher,
+                title: "Đội Ngũ Giáo Viên Giàu Kinh Nghiệm",
+                desc: "100% giáo viên có chứng chỉ hành nghề quốc gia, kinh nghiệm giảng dạy trên 5 năm, tận tâm với từng học viên",
+              },
+              {
+                Icon: IconPassRate,
+                title: "Tỷ Lệ Đậu Sát Hạch Cao",
+                desc: "Hơn 92% học viên đậu sát hạch ngay lần thi đầu tiên — không phải may mắn, mà là phương pháp đào tạo bài bản",
+              },
+            ].map((p, i) => (
               <FadeUp key={p.title} delay={i * 0.1}>
                 <div
-                  className="group p-6 rounded-xl hover-elevate transition-all duration-300 cursor-default"
+                  className="group p-7 rounded-xl transition-all duration-300 cursor-default"
                   style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)" }}
                 >
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ backgroundColor: "rgba(240,165,0,0.15)" }}>
-                    <p.icon className="w-6 h-6" style={{ color: "#F0A500" }} />
+                  <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-5" style={{ backgroundColor: "rgba(200,16,46,0.15)" }}>
+                    <p.Icon size={30} />
                   </div>
                   <h4 className="font-semibold text-base text-white mb-2">{p.title}</h4>
                   <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.65)" }}>{p.desc}</p>
@@ -562,9 +680,34 @@ export default function Home() {
             ))}
           </div>
 
+          {/* Address highlight */}
+          <FadeUp delay={0.25}>
+            <div
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 p-5 rounded-xl text-center sm:text-left"
+              style={{ backgroundColor: "rgba(240,165,0,0.1)", border: "1px solid rgba(240,165,0,0.25)" }}
+            >
+              <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: "#F0A500" }}>
+                <MapPin className="w-5 h-5" style={{ color: "#1A1A2E" }} />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-white">Cơ Sở Chính</div>
+                <div className="text-sm" style={{ color: "rgba(255,255,255,0.75)" }}>1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP. Hồ Chí Minh</div>
+              </div>
+              <a
+                href="https://maps.google.com/?q=1184+Nguyen+Van+Tao+Long+Thoi+Nha+Be"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-shrink-0 text-xs font-bold px-4 py-2 rounded-full"
+                style={{ backgroundColor: "#F0A500", color: "#1A1A2E" }}
+              >
+                Xem Bản Đồ
+              </a>
+            </div>
+          </FadeUp>
+
           {/* Fleet image */}
           <FadeUp delay={0.3}>
-            <div className="mt-16 rounded-2xl overflow-hidden" style={{ maxHeight: "360px" }}>
+            <div className="mt-12 rounded-2xl overflow-hidden" style={{ maxHeight: "360px" }}>
               <img src={fleetImg} alt="Đội xe thực hành Thành Công" className="w-full object-cover object-top" />
             </div>
           </FadeUp>
@@ -583,10 +726,17 @@ export default function Home() {
                 Luôn Có Lớp Học Phù Hợp Với Bạn
               </h2>
               <p className="text-lg mb-6" style={{ color: "#6B7280" }}>
-                Chúng tôi khai giảng liên tục mỗi tháng tại tất cả cơ sở. Đăng ký sớm để giữ chỗ — mỗi lớp giới hạn số lượng học viên để đảm bảo chất lượng.
+                Chúng tôi khai giảng liên tục mỗi tháng. Đăng ký sớm để giữ chỗ — mỗi lớp giới hạn số lượng học viên để đảm bảo chất lượng.
               </p>
-              <div className="mb-6 p-4 rounded-xl border-l-4 flex items-center gap-3" style={{ backgroundColor: "#FFF8E6", borderLeftColor: "#F0A500" }}>
+              <div className="flex items-center gap-2 mb-6 p-4 rounded-xl" style={{ backgroundColor: "#FFF8E6", border: "1px solid #F0A500" }}>
                 <span className="text-sm font-semibold" style={{ color: "#1A1A2E" }}>Lớp tháng 3 sắp đầy — chỉ còn vài chỗ cuối!</span>
+              </div>
+              <div className="flex items-start gap-3 mb-4 p-3 rounded-lg" style={{ backgroundColor: "#F8F6F2" }}>
+                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: "#C8102E" }} />
+                <div>
+                  <div className="text-sm font-bold" style={{ color: "#1A1A2E" }}>Địa Điểm Học</div>
+                  <div className="text-sm" style={{ color: "#6B7280" }}>1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP.HCM</div>
+                </div>
               </div>
               <a
                 href="#contact"
@@ -609,7 +759,6 @@ export default function Home() {
                     <tr style={{ backgroundColor: "#F8F6F2" }}>
                       <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide" style={{ color: "#6B7280" }}>Ngày</th>
                       <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide" style={{ color: "#6B7280" }}>Hạng</th>
-                      <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide" style={{ color: "#6B7280" }}>Cơ Sở</th>
                       <th className="text-left px-4 py-3 text-xs font-semibold uppercase tracking-wide" style={{ color: "#6B7280" }}>Trạng Thái</th>
                     </tr>
                   </thead>
@@ -618,7 +767,6 @@ export default function Home() {
                       <tr key={i} className="border-t border-gray-50 hover:bg-gray-50 transition-colors" data-testid={`row-schedule-${i}`}>
                         <td className="px-4 py-3.5 font-mono font-semibold" style={{ color: "#1A1A2E" }}>{row.date}</td>
                         <td className="px-4 py-3.5 font-medium" style={{ color: "#1A1A2E" }}>{row.type}</td>
-                        <td className="px-4 py-3.5 text-xs" style={{ color: "#6B7280" }}>{row.branch}</td>
                         <td className="px-4 py-3.5">
                           <span
                             className="inline-flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full"
@@ -661,7 +809,7 @@ export default function Home() {
             {TESTIMONIALS.map((t, i) => (
               <FadeUp key={i} delay={i * 0.1}>
                 <div
-                  className="group p-6 rounded-xl hover-elevate transition-all duration-300 cursor-default relative"
+                  className="group p-6 rounded-xl cursor-default transition-all duration-300"
                   style={{ backgroundColor: "white", borderLeft: "4px solid #C8102E", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}
                   data-testid={`card-testimonial-${i}`}
                 >
@@ -696,9 +844,9 @@ export default function Home() {
                 Tự Do Di Chuyển
               </h2>
               <p className="text-white/85 text-lg mb-8 leading-relaxed">
-                Điền form đăng ký — chúng tôi sẽ liên hệ tư vấn trong vòng 24 giờ để tìm khóa học phù hợp nhất với nhu cầu và lịch trình của bạn.
+                Điền form đăng ký — chúng tôi sẽ liên hệ tư vấn trong vòng 24 giờ để tìm khóa học phù hợp nhất với bạn.
               </p>
-              <ul className="space-y-3">
+              <ul className="space-y-3 mb-8">
                 {[
                   "Tư vấn hoàn toàn miễn phí, không ràng buộc",
                   "Hỗ trợ học phí trả góp linh hoạt",
@@ -710,6 +858,17 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+              <div
+                className="flex items-start gap-3 p-4 rounded-xl"
+                style={{ backgroundColor: "rgba(255,255,255,0.15)" }}
+              >
+                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5 text-white" />
+                <div>
+                  <div className="text-sm font-bold text-white">Đến Gặp Chúng Tôi</div>
+                  <div className="text-sm text-white/80">1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP.HCM</div>
+                  <div className="text-sm text-white/80 mt-1">Điện thoại: <strong>1900 636 836</strong></div>
+                </div>
+              </div>
             </FadeUp>
 
             <FadeUp delay={0.15}>
@@ -770,38 +929,20 @@ export default function Home() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide" style={{ color: "#6B7280" }}>Hạng Đăng Ký</label>
-                        <select
-                          className="w-full rounded-lg border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 bg-white"
-                          style={{ borderColor: "#E5E0D8", color: formData.course ? "#1A1A2E" : "#9CA3AF" }}
-                          value={formData.course}
-                          onChange={(e) => setFormData({ ...formData, course: e.target.value })}
-                          data-testid="select-course"
-                        >
-                          <option value="">Chọn hạng...</option>
-                          <option value="b-auto">B Tự Động</option>
-                          <option value="b-manual">B Cơ Khí</option>
-                          <option value="c1">C1</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide" style={{ color: "#6B7280" }}>Cơ Sở Gần Nhất</label>
-                        <select
-                          className="w-full rounded-lg border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 bg-white"
-                          style={{ borderColor: "#E5E0D8", color: formData.branch ? "#1A1A2E" : "#9CA3AF" }}
-                          value={formData.branch}
-                          onChange={(e) => setFormData({ ...formData, branch: e.target.value })}
-                          data-testid="select-branch"
-                        >
-                          <option value="">Chọn cơ sở...</option>
-                          <option value="nb1">CS 1 - Nhà Bè (705 NV Tạo)</option>
-                          <option value="nb2">CS 2 - Nhà Bè (1752 HT Phát)</option>
-                          <option value="tb">CS 3 - Tân Bình (286 Âu Cơ)</option>
-                          <option value="q4">CS 4 - Quận 4 (152 Khánh Hội)</option>
-                        </select>
-                      </div>
+                    <div>
+                      <label className="block text-xs font-semibold mb-1.5 uppercase tracking-wide" style={{ color: "#6B7280" }}>Hạng Đăng Ký</label>
+                      <select
+                        className="w-full rounded-lg border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 bg-white"
+                        style={{ borderColor: "#E5E0D8", color: formData.course ? "#1A1A2E" : "#9CA3AF" }}
+                        value={formData.course}
+                        onChange={(e) => setFormData({ ...formData, course: e.target.value })}
+                        data-testid="select-course"
+                      >
+                        <option value="">Chọn hạng...</option>
+                        <option value="b-auto">B Tự Động</option>
+                        <option value="b-manual">B Cơ Khí</option>
+                        <option value="c1">C1</option>
+                      </select>
                     </div>
 
                     <div>
@@ -866,12 +1007,12 @@ export default function Home() {
             {NEWS.map((item, i) => (
               <FadeUp key={i} delay={i * 0.08}>
                 <div
-                  className="group rounded-xl overflow-hidden hover-elevate cursor-pointer transition-all duration-300"
+                  className="group rounded-xl overflow-hidden cursor-pointer transition-all duration-300"
                   style={{ backgroundColor: "#F8F6F2", border: "1px solid #E5E0D8" }}
                   data-testid={`card-news-${i}`}
                 >
                   <div className="h-32 flex items-center justify-center" style={{ backgroundColor: "#1A1A2E" }}>
-                    <Award className="w-10 h-10" style={{ color: "#F0A500" }} />
+                    <IconPassRate size={36} />
                   </div>
                   <div className="p-4">
                     <span
@@ -881,7 +1022,7 @@ export default function Home() {
                       {item.category}
                     </span>
                     <h4
-                      className="font-semibold text-sm leading-snug mb-2 group-hover:underline transition-all"
+                      className="font-semibold text-sm leading-snug mb-2 group-hover:underline"
                       style={{ color: "#1A1A2E", textDecorationColor: "#C8102E" }}
                     >
                       {item.title}
@@ -927,22 +1068,20 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Col 2 - Branches */}
+            {/* Col 2 - Address */}
             <div>
-              <h4 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: "#F0A500" }}>Trụ Sở</h4>
-              <ul className="space-y-3">
-                {[
-                  { loc: "CS 1: 705 Nguyễn Văn Tạo, Nhà Bè", phone: "0334 705 705" },
-                  { loc: "CS 2: 1752 Huỳnh Tấn Phát, Nhà Bè", phone: "1900 636 836" },
-                  { loc: "CS 3: 286 Âu Cơ, Q. Tân Bình", phone: "0349 075 570" },
-                  { loc: "CS 4: 152 Khánh Hội, Q.4", phone: "0372 730 152" },
-                ].map((b, i) => (
-                  <li key={i} className="text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>
-                    <div className="mb-0.5">{b.loc}</div>
-                    <div style={{ color: "rgba(255,255,255,0.4)" }}>{b.phone}</div>
-                  </li>
-                ))}
-              </ul>
+              <h4 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: "#F0A500" }}>Địa Chỉ</h4>
+              <div className="flex items-start gap-2 mb-3">
+                <MapPin className="w-4 h-4 flex-shrink-0 mt-0.5" style={{ color: "#C8102E" }} />
+                <div>
+                  <div className="text-xs font-semibold text-white mb-1">Cơ Sở Chính</div>
+                  <div className="text-xs" style={{ color: "rgba(255,255,255,0.65)" }}>1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP. Hồ Chí Minh</div>
+                </div>
+              </div>
+              <div className="mt-4 space-y-1">
+                <div className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>Hotline: <span className="text-white font-semibold">1900 636 836</span></div>
+                <div className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>dangkyhoc@trungtamthanhcong.vn</div>
+              </div>
             </div>
 
             {/* Col 3 - Links */}
@@ -959,25 +1098,19 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Col 4 - Contact */}
+            {/* Col 4 - Trust */}
             <div>
-              <h4 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: "#F0A500" }}>Liên Hệ</h4>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>
-                  <Phone className="w-4 h-4 flex-shrink-0" style={{ color: "#F0A500" }} />
-                  1900 636 836
-                </li>
-                <li className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>
-                  <span className="flex-shrink-0 w-4 h-4 flex items-center justify-center text-xs" style={{ color: "#F0A500" }}>@</span>
-                  dangkyhoc@trungtamthanhcong.vn
-                </li>
-                <li className="flex items-center gap-2 text-xs" style={{ color: "rgba(255,255,255,0.7)" }}>
-                  <MapPin className="w-4 h-4 flex-shrink-0" style={{ color: "#F0A500" }} />
-                  trungtamthanhcong.vn
-                </li>
-              </ul>
-              <div className="mt-5 px-3 py-2 rounded-lg text-xs font-semibold text-center" style={{ backgroundColor: "rgba(240,165,0,0.15)", color: "#F0A500", border: "1px solid rgba(240,165,0,0.3)" }}>
-                Đã Thông Báo Bộ Công Thương
+              <h4 className="text-sm font-bold uppercase tracking-wide mb-4" style={{ color: "#F0A500" }}>Chứng Nhận</h4>
+              <div className="space-y-3">
+                <div className="px-3 py-2.5 rounded-lg text-xs font-semibold text-center" style={{ backgroundColor: "rgba(240,165,0,0.12)", color: "#F0A500", border: "1px solid rgba(240,165,0,0.25)" }}>
+                  Được Cấp Phép Bộ GTVT
+                </div>
+                <div className="px-3 py-2.5 rounded-lg text-xs font-semibold text-center" style={{ backgroundColor: "rgba(240,165,0,0.12)", color: "#F0A500", border: "1px solid rgba(240,165,0,0.25)" }}>
+                  Đã Thông Báo Bộ Công Thương
+                </div>
+                <div className="px-3 py-2.5 rounded-lg text-xs font-semibold text-center" style={{ backgroundColor: "rgba(200,16,46,0.12)", color: "#ff8899", border: "1px solid rgba(200,16,46,0.25)" }}>
+                  Thành Lập 2009 · 15+ Năm
+                </div>
               </div>
             </div>
           </div>
