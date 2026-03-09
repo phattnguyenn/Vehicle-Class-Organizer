@@ -327,7 +327,7 @@ export default function Home() {
       if (res.ok) {
         setFormSubmitted(true);
       } else {
-        alert("Có lỗi xảy ra. Vui lòng thử lại hoặc gọi 1900 636 836.");
+        alert("Có lỗi xảy ra. Vui lòng thử lại hoặc gọi 0867 741 919.");
       }
     } catch {
       alert("Không thể kết nối. Vui lòng thử lại sau.");
@@ -397,10 +397,10 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.4, ease: EASE_OUT }}
               >
-                <a href="tel:1900636836" className="flex items-center gap-2 text-sm font-semibold border-2 rounded-full px-4 py-2 transition-all"
+                <a href="tel:0867741919" className="flex items-center gap-2 text-sm font-semibold border-2 rounded-full px-4 py-2 transition-all"
                   style={{ borderColor: scrolled ? "#C8102E" : "rgba(255,255,255,0.7)", color: scrolled ? "#C8102E" : "white" }}
                   data-testid="link-phone-nav">
-                  <Phone className="w-4 h-4" />1900 636 836
+                  <Phone className="w-4 h-4" />0867 741 919
                 </a>
                 <a href="#contact" className="text-sm font-bold rounded-full px-5 py-2"
                   style={{ backgroundColor: "#C8102E", color: "white" }}
@@ -425,7 +425,7 @@ export default function Home() {
                     <a key={link.label} href={link.href} className="text-base font-medium py-2 border-b border-gray-50"
                       style={{ color: "#1A1A2E" }} onClick={() => setMobileMenuOpen(false)}>{link.label}</a>
                   ))}
-                  <a href="tel:1900636836" className="mt-2 text-center font-bold py-3 rounded-full border-2" style={{ borderColor: "#C8102E", color: "#C8102E" }}>1900 636 836</a>
+                  <a href="tel:0867741919" className="mt-2 text-center font-bold py-3 rounded-full border-2" style={{ borderColor: "#C8102E", color: "#C8102E" }}>0867 741 919</a>
                   <a href="#contact" className="text-center font-bold py-3 rounded-full" style={{ backgroundColor: "#C8102E", color: "white" }} onClick={() => setMobileMenuOpen(false)}>Đăng Ký Ngay</a>
                 </div>
               </motion.div>
@@ -617,7 +617,9 @@ export default function Home() {
                         <div className="flex items-center gap-1.5 text-sm" style={{ color: "#6B7280" }}>
                           <Clock className="w-4 h-4" />{course.duration}
                         </div>
-                        <motion.a href="#contact" className="inline-flex items-center gap-1 text-sm font-semibold"
+                        <motion.a
+                          href={course.id === "b-auto" ? "/khoa-hoc/hang-b1" : course.id === "b-manual" ? "/khoa-hoc/hang-b2" : "/khoa-hoc/hang-c"}
+                          className="inline-flex items-center gap-1 text-sm font-semibold"
                           style={{ color: "#C8102E" }} whileHover={{ x: 3 }} transition={SPRING_SOFT}
                           data-testid={`link-learn-more-${course.id}`}>
                           Tìm Hiểu Thêm <ChevronRight className="w-4 h-4" />
@@ -915,7 +917,7 @@ export default function Home() {
                   <div>
                     <div className="text-sm font-bold text-white">Đến Gặp Chúng Tôi</div>
                     <div className="text-sm text-white/80">1184 Nguyễn Văn Tạo, Long Thới, Nhà Bè, TP.HCM</div>
-                    <div className="text-sm text-white/80 mt-1">Điện thoại: <strong>1900 636 836</strong></div>
+                    <div className="text-sm text-white/80 mt-1">Điện thoại: <strong>0867 741 919</strong></div>
                   </div>
                 </a>
               </FadeUp>
@@ -1092,7 +1094,7 @@ export default function Home() {
                   </div>
                 </a>
                 <div className="mt-4 space-y-1">
-                  <div className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>Hotline: <span className="text-white font-semibold">1900 636 836</span></div>
+                  <div className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>Hotline: <span className="text-white font-semibold">0867 741 919</span></div>
                   <div className="text-xs" style={{ color: "rgba(255,255,255,0.55)" }}>dangkyhoc@trungtamthanhcong.vn</div>
                 </div>
               </FadeUp>
@@ -1137,7 +1139,7 @@ export default function Home() {
               transition={{ duration: 0.5, ease: EASE_OUT }}
               className="fixed right-4 bottom-24 flex flex-col gap-3 z-40">
               {[
-                { href: "tel:1900636836", bg: "#C8102E", icon: <Phone className="w-5 h-5 text-white" />, label: "Gọi Ngay", testid: "button-float-call" },
+                { href: "tel:0867741919", bg: "#C8102E", icon: <Phone className="w-5 h-5 text-white" />, label: "Gọi Ngay", testid: "button-float-call" },
                 { href: "#", bg: "#0866FF", icon: <MessageCircle className="w-5 h-5 text-white" />, label: "Messenger", testid: "button-float-messenger" },
                 { href: "#", bg: "#0068FF", icon: <span className="text-white text-xs font-bold">Zalo</span>, label: "Chat Zalo", testid: "button-float-zalo" },
               ].map((btn, i) => (

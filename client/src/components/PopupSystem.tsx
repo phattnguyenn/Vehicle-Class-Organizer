@@ -160,7 +160,7 @@ export default function PopupSystem({ formSubmitted, onStickyChange }: Props) {
         setGlobalDone(true);
         localStorage.setItem(LS_REGISTERED, "true");
       } else {
-        alert("Có lỗi xảy ra. Vui lòng thử lại hoặc gọi 1900 636 836.");
+        alert("Có lỗi xảy ra. Vui lòng thử lại hoặc gọi 0867 741 919.");
       }
     } catch {
       alert("Không thể kết nối. Vui lòng thử lại sau.");
@@ -240,7 +240,7 @@ export default function PopupSystem({ formSubmitted, onStickyChange }: Props) {
                         <a href={MAPS_URL} target="_blank" rel="noopener noreferrer" className="text-sm block hover:underline">
                           📍 Cơ sở: <strong>1184 Nguyễn Văn Tạo, Nhà Bè, TP.HCM</strong>
                         </a>
-                        <div className="text-sm">📞 Hotline: <strong>1900 636 836</strong></div>
+                        <div className="text-sm">📞 Hotline: <strong>0867 741 919</strong></div>
                       </div>
                       <button onClick={() => setShowMain(false)} className="text-sm font-semibold underline" style={{ color: "#6B7280" }}>Đóng lại</button>
                     </motion.div>
