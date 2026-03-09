@@ -1,0 +1,456 @@
+# 🚀 PROMPT HOÀN CHỈNH CHO V0 — LANDING PAGE TRUNG TÂM LÁI XE THÀNH CÔNG
+
+---
+
+## DÁN TOÀN BỘ NỘI DUNG NÀY VÀO V0:
+
+---
+
+Xây dựng một **landing page cao cấp, tối ưu chuyển đổi cho trung tâm đào tạo lái xe Việt Nam** — **Trung Tâm Đào Tạo và Sát Hạch Lái Xe Thành Công** — một trong những trung tâm đào tạo lái xe lâu đời và uy tín nhất tại TP. Hồ Chí Minh, thành lập năm 2009, hiện có 4 cơ sở trải khắp thành phố.
+
+---
+
+## 🎨 HỆ THỐNG THIẾT KẾ & BỘ NHẬN DIỆN THƯƠNG HIỆU
+
+### Bảng màu tinh giản (tối đa 3 màu chính + màu trung tính):
+```
+--mau-chinh:       #C8102E   /* Đỏ Crimson — quyền uy thương hiệu, tin tưởng, hành động */
+--mau-phu:         #1A1A2E   /* Xanh Navy đậm — cao cấp, chuyên nghiệp, chiều sâu */
+--mau-nhan:        #F0A500   /* Vàng Gold — thành công, thành tựu, giá trị xứng đáng */
+--nen-sang:        #F8F6F2   /* Trắng Kem ấm — thoáng đãng, cảm giác premium */
+--nen-trang:       #FFFFFF
+--chu-chinh:       #1A1A2E
+--chu-mo:          #6B7280
+--duong-vien:      #E5E0D8
+```
+
+> ❌ KHÔNG dùng header màu xanh ngọc/xanh lá. KHÔNG để màu nền be cát chiếm ưu thế. KHÔNG dùng màu sắc lộn xộn.
+> ✅ Màu đỏ chỉ dùng làm điểm nhấn mạnh. Vàng Gold dành cho nút kêu gọi hành động. Navy làm nền tối cao cấp.
+
+### Phông chữ:
+- **Tiêu đề / Hero**: `Playfair Display` — có thẩm quyền, cao cấp, nghiêm túc kiểu trường học
+- **Nội dung / Giao diện**: `Be Vietnam Pro` — tối ưu cho tiếng Việt, hiện đại, dễ đọc
+- **Nhãn số liệu**: `Space Mono` — rõ ràng, đáng tin cậy khi hiển thị con số và thống kê
+
+### Phong cách thiết kế tổng thể:
+- Sang trọng kiểu tạp chí chuyên nghiệp kết hợp với sự thực dụng của người Việt
+- Khoảng trắng rộng rãi — để nội dung thở (phong cách Framer Eduzin)
+- Bố cục không đối xứng với các điểm nhấn chữ in đậm
+- Hiệu ứng hạt nhẹ trên section hero
+- Thẻ card có bóng mềm + viền 1px khi rê chuột
+- Hiệu ứng cuộn mượt (fade-up so le, độ trễ 60ms giữa các phần tử)
+
+---
+
+## 📐 KIẾN TRÚC TRANG — TỪNG PHẦN MỘT
+
+---
+
+### PHẦN 1: THANH ĐIỀU HƯỚNG CỐ ĐỊNH (STICKY NAV)
+```
+Bố cục: Trong suốt → trắng khi cuộn xuống, có hiệu ứng mờ nền
+Trái: Logo SVG (biểu tượng TC hình tròn, đỏ/trắng/xanh) + chữ "THÀNH CÔNG"
+Giữa: Các liên kết — Trang Chủ | Khóa Học | Quy Trình | Lịch Khai Giảng | Tin Tức | Liên Hệ
+Phải: Số điện thoại (1900 636 836) dạng nút viền + nút "Đăng Ký Ngay" hình viên thuốc màu đỏ
+Điện thoại: Menu hamburger mở ra màn hình phủ toàn trang
+```
+
+---
+
+### PHẦN 2: HERO — BỐ CỤC HAI CỘT
+```
+Bố cục: Chia 55/45 — Trái là văn bản, Phải là ảnh toàn chiều cao có lớp phủ màu
+
+NỘI DUNG BÊN TRÁI:
+  [Nhãn nhỏ màu vàng — chữ hoa, khoảng cách chữ rộng]
+  "ĐÀO TẠO LÁI XE"
+  
+  [H1 — Playfair Display, 72px, màu navy]
+  "Hành Trình Đến
+  Bằng Lái Xe
+  Bắt Đầu Tại Đây"
+
+  [Văn bản phụ — 18px, màu xám]
+  "Hơn 15 năm kinh nghiệm đào tạo, tỷ lệ đậu sát hạch
+  trên 92%. Chúng tôi không chỉ dạy lái xe — chúng tôi
+  xây dựng những người lái xe an toàn cho TP.HCM."
+
+  [Hàng số liệu — 3 thống kê nằm ngang]
+  ┌─────────────┬──────────────┬──────────────┐
+  │  15+ Năm    │  92% Đậu    │  4 Cơ Sở     │
+  │  Kinh nghiệm│  Sát Hạch   │  Toàn TP.HCM │
+  └─────────────┴──────────────┴──────────────┘
+
+  [Nhóm nút kêu gọi hành động]
+  [Đăng Ký Học Ngay →] (nút hình viên thuốc màu đỏ, chiều cao 52px)
+  [Xem Lịch Khai Giảng] (nút viền trong suốt với mũi tên màu vàng)
+
+ẢNH BÊN PHẢI:
+  Ảnh toàn chiều cao với lớp phủ đỏ 15% độ mờ
+  Huy hiệu nổi: "✓ Được Cấp Phép Bộ GTVT" (thẻ trắng, góc dưới bên trái ảnh)
+```
+
+---
+
+### PHẦN 3: THANH CHỨNG MINH UY TÍN
+```
+Nền xanh Navy đậm, toàn chiều rộng trang
+Hàng thông tin tin cậy chạy ngang (hoặc ticker cuộn trên mobile):
+  ★ Thành lập 2009 — 15+ năm hoạt động
+  ★ Được cấp phép Sở GTVT TP.HCM
+  ★ Hơn 10.000 học viên đã tốt nghiệp
+  ★ 4 cơ sở tại Nhà Bè, Tân Bình, Quận 4
+  ★ Tỷ lệ đậu sát hạch trên 92%
+Kiểu dáng: Dấu chấm vàng phân cách, chữ trắng, cuộn nhẹ trên mobile
+```
+
+---
+
+### PHẦN 4: CÁC HẠNG ĐÀO TẠO
+```
+Tiêu đề phần:
+  [Nhãn vàng] "KHÓA HỌC"
+  [H2 Playfair] "Chọn Hạng Bằng Lái Phù Hợp Với Bạn"
+  [Văn bản phụ] "Từ xe số tự động đến xe tải hạng nặng — chúng tôi có đầy đủ chương trình đào tạo"
+
+Lưới 3 cột (thêm cột thứ 4 cho hạng C2 nếu cần):
+
+MẪU THẺ CARD:
+  ┌─────────────────────────────┐
+  │  [Ảnh minh họa xe]          │
+  │  ═══════════════════════    │
+  │  HẠNG B TỰ ĐỘNG             │
+  │  Xe ô tô dưới 9 chỗ ngồi   │
+  │  ──────────────────         │
+  │  ✓ 292 giờ học theo chuẩn   │
+  │  ✓ Thực hành tại sân chuẩn  │
+  │  ✓ Học cabin điện tử mô phỏng│
+  │  ──────────────────         │
+  │  Thời gian học: 3–4 tháng   │
+  │  [Tìm Hiểu Thêm →]          │
+  └─────────────────────────────┘
+
+Bốn thẻ: Hạng B Tự Động | Hạng B Cơ Khí | Hạng C1 | Hạng C (xe tải)
+Khi rê chuột: thẻ nâng lên, viền trái đỏ xuất hiện, ảnh zoom nhẹ
+```
+
+---
+
+### PHẦN 5: QUY TRÌNH HỌC LÁI XE
+```
+Nền: Trắng kem ấm (#F8F6F2)
+Tiêu đề phần:
+  [H2 Playfair] "Hành Trình 8 Bước Đến Bằng Lái"
+  [Phụ đề] "Quy trình minh bạch — bạn biết mình đang ở bước nào mỗi lúc"
+
+Bố cục: Dòng thời gian nằm ngang trên máy tính, dạng xếp chồng dọc trên mobile
+
+8 bước (kết nối bằng đường tiến trình có hiệu ứng động):
+  1. 📋 Thủ Tục Đăng Ký
+     "Điền form đăng ký, nộp hồ sơ, chọn lịch khai giảng phù hợp với lịch cá nhân"
+  
+  2. 📁 Nộp & Xử Lý Hồ Sơ
+     "Trung tâm tiếp nhận và hoàn tất xử lý hồ sơ trong vòng 2–3 ngày làm việc"
+  
+  3. 📚 Nhận Thông Tin Khóa Học
+     "Xác nhận lịch học, nhận tài liệu và thông tin lớp học đầy đủ"
+  
+  4. 📖 Học Lý Thuyết
+     "Ôn 450 câu hỏi pháp luật giao thông, học trực tiếp kết hợp ứng dụng ôn tập"
+  
+  5. 🚘 Học Cabin Điện Tử
+     "Luyện lái xe mô phỏng trong cabin điện tử hiện đại trước khi ra sân thật"
+  
+  6. 🛣️ Học Thực Hành
+     "Thực hành lái xe trên sân tập đạt chuẩn với giáo viên dày dạn kinh nghiệm"
+  
+  7. 📝 Thi Tốt Nghiệp
+     "Thi đánh giá kỹ năng nội bộ trước khi đăng ký thi sát hạch chính thức"
+  
+  8. 🏆 Thi Sát Hạch
+     "Thi tại Trung tâm sát hạch, nhận bằng lái xe ngay sau khi đậu"
+
+Kiểu dáng: Số thứ tự trong vòng tròn navy lớn, đường kết nối màu vàng,
+            trạng thái khi rê chuột tô sáng màu đỏ
+```
+
+---
+
+### PHẦN 6: TẠI SAO CHỌN THÀNH CÔNG? (4 Trụ Cột)
+```
+Nền: Xanh Navy đậm (#1A1A2E) — phần tối tạo nhịp tương phản cho trang
+Màu chữ trên nền tối: trắng, điểm nhấn vàng
+
+[H2 Playfair, chữ trắng] "Tại Sao Hơn 10.000 Học Viên Tin Chọn Thành Công?"
+
+Lưới biểu tượng 4 cột:
+
+  🏫 CƠ SỞ VẬT CHẤT HIỆN ĐẠI
+  "Sân tập đạt chuẩn Bộ GTVT, trang bị cabin điện tử mô phỏng, xe học đời mới nhất"
+
+  👨‍🏫 ĐỘI NGŨ GIÁO VIÊN GIÀU KINH NGHIỆM
+  "100% giáo viên có chứng chỉ hành nghề quốc gia, kinh nghiệm giảng dạy trên 5 năm"
+
+  📊 TỶ LỆ ĐẬU SÁT HẠCH CAO
+  "Hơn 92% học viên đậu sát hạch ngay lần thi đầu tiên — chúng tôi cam kết chất lượng đầu ra"
+
+  📍 4 CƠ SỞ THUẬN TIỆN ĐI LẠI
+  "Nhà Bè, Tân Bình, Quận 4 — dễ dàng tiếp cận từ mọi quận trong TP.HCM"
+
+Kiểu dáng thẻ: viền tinh tế trên nền tối, biểu tượng màu vàng, khi rê chuột thẻ sáng nhẹ
+```
+
+---
+
+### PHẦN 7: LỊCH KHAI GIẢNG
+```
+Nền: Trắng
+Bố cục: Khối văn bản bên trái + Thẻ bảng lịch bên phải
+
+BÊN TRÁI:
+  [Nhãn vàng] "LỊCH KHAI GIẢNG"
+  [H2 Playfair] "Luôn Có Lớp Học Phù Hợp Với Thời Gian Của Bạn"
+  [Nội dung] "Chúng tôi khai giảng liên tục mỗi tháng tại tất cả cơ sở.
+  Đăng ký sớm để giữ chỗ — mỗi lớp giới hạn số lượng học viên để đảm bảo chất lượng."
+  
+  [Nút] Xem Toàn Bộ Lịch Khai Giảng →
+
+BÊN PHẢI (thẻ bảng có thiết kế đẹp):
+  ┌──────────────────────────────────────────┐
+  │  THÁNG 3 — 2026                          │
+  ├─────────┬────────────┬───────┬───────────┤
+  │ Ngày    │ Hạng       │ Cơ Sở │ Trạng Thái│
+  ├─────────┼────────────┼───────┼───────────┤
+  │ 10/03   │ B Tự Động  │ CS 1  │ Còn chỗ ✓ │
+  │ 15/03   │ B Cơ Khí   │ CS 2  │ Còn chỗ ✓ │
+  │ 20/03   │ C1         │ CS 1  │ Sắp đầy ⚠ │
+  │ 25/03   │ B Tự Động  │ CS 3  │ Còn chỗ ✓ │
+  └─────────┴────────────┴───────┴───────────┘
+  [Đăng Ký Lớp Này →] nút màu đỏ
+```
+
+---
+
+### PHẦN 8: CẢM NHẬN HỌC VIÊN
+```
+Nền: Trắng kem ấm
+[H2 Playfair] "Học Viên Nói Gì Về Chúng Tôi"
+
+Lưới 3 thẻ cảm nhận:
+
+MẪU THẺ:
+  ┌────────────────────────────────┐
+  │  ★★★★★                         │
+  │  "Tôi đã thử học ở chỗ khác    │
+  │  nhưng trượt sát hạch. Chuyển  │
+  │  sang Thành Công — đậu ngay    │
+  │  lần đầu. Giáo viên tận tình   │
+  │  và chuyên nghiệp lắm."        │
+  │  ────────────────              │
+  │  [Ảnh đại diện] Nguyễn Thị Lan │
+  │  Học viên Hạng B • CS Nhà Bè   │
+  └────────────────────────────────┘
+
+3 thẻ cảm nhận. Viền trái đỏ tinh tế.
+Ngôi sao màu vàng. Tên học viên in đậm màu navy.
+```
+
+---
+
+### PHẦN 9: FORM ĐĂNG KÝ HỌC
+```
+Nền: Đỏ Crimson (#C8102E) — phần kêu gọi hành động tương phản cao
+Padding rộng rãi toàn chiều rộng trang
+
+Bố cục: 50/50 — Tiêu đề bên trái + Form bên phải
+
+BÊN TRÁI:
+  [Nhãn trắng, khoảng cách chữ rộng] "BẮT ĐẦU NGAY HÔM NAY"
+  [H2 Playfair, chữ trắng, 52px]
+  "Một Quyết Định
+  Thay Đổi Sự
+  Tự Do Di Chuyển"
+  
+  [Văn bản trắng]
+  "Điền form đăng ký — chúng tôi sẽ liên hệ tư vấn trong vòng 24 giờ
+  để tìm khóa học phù hợp nhất với nhu cầu và lịch trình của bạn."
+  
+  [Điểm tin tưởng chữ trắng]
+  ✓ Tư vấn hoàn toàn miễn phí, không ràng buộc
+  ✓ Hỗ trợ học phí trả góp linh hoạt
+  ✓ Bảo hành thi lại miễn phí nếu chưa đậu
+
+BÊN PHẢI (thẻ form — nền trắng, bo tròn, có bóng):
+  Tiêu đề: "Đăng Ký Tư Vấn Miễn Phí"
+  
+  Các trường nhập liệu:
+  - Họ và Tên *
+  - Số Điện Thoại *
+  - Email
+  - Hạng Đăng Ký [chọn: B Tự Động | B Cơ Khí | C1 | C]
+  - Cơ Sở Gần Nhất [chọn: Nhà Bè | Tân Bình | Quận 4]
+  - Ghi Chú [ô văn bản, không bắt buộc]
+  
+  [ĐĂNG KÝ NGAY →] (nút vàng, toàn chiều rộng, chiều cao 56px)
+  
+  Ghi chú nhỏ: "🔒 Thông tin của bạn được bảo mật tuyệt đối"
+```
+
+---
+
+### PHẦN 10: TIN TỨC MỚI NHẤT
+```
+Nền: Trắng
+[H2 Playfair] "Cập Nhật Mới Nhất"
+[Phụ đề] "Sự kiện trung tâm, quy định mới và kiến thức lái xe hữu ích"
+
+Lưới tin tức 4 cột với tab danh mục:
+  [Sự Kiện] [Quy Định Mới] [Kiến Thức Lái Xe] [Hình Ảnh & Hoạt Động]
+
+Thẻ tin: ảnh + nhãn danh mục + tiêu đề + đoạn trích + ngày đăng
+Khi rê chuột: ảnh zoom nhẹ, tiêu đề gạch chân đỏ
+[Xem Tất Cả Tin Tức →] nút viền trong suốt
+```
+
+---
+
+### PHẦN 11: ĐỐI TÁC & LIÊN KẾT
+```
+Nền: Trắng kem
+[Nhãn] "ĐỐI TÁC & LIÊN KẾT"
+Hàng logo màu xám, khi rê chuột hiện lại màu gốc
+7 logo đối tác trong một hàng cuộn
+```
+
+---
+
+### PHẦN 12: CHÂN TRANG (FOOTER)
+```
+Nền: Xanh Navy đậm (#1A1A2E)
+Bố cục 4 cột:
+
+CỘT 1 — Thương Hiệu:
+  Logo + slogan
+  "Trung Tâm Giáo Dục Nghề Nghiệp Lái Xe Thành Công
+  Quyết định thành lập số 773 — UBND TP.HCM — 27/02/2009"
+  Biểu tượng mạng xã hội: Facebook, YouTube, Zalo
+
+CỘT 2 — Trụ Sở Chính:
+  CS 1: 705 Nguyễn Văn Tạo, Ấp 1, Xã Long Thới, Nhà Bè — 0334 705 705
+  CS 2: 1752 Huỳnh Tấn Phát, Huyện Nhà Bè — 1900 636 836
+  CS 3: 286 Âu Cơ, Phường 9, Quận Tân Bình — 0349 075 570
+  CS 4: 152 Khánh Hội, Phường 6, Quận 4 — 0372 730 152
+
+CỘT 3 — Liên Kết Nhanh:
+  Khóa Học | Lịch Khai Giảng | Tra Cứu Kết Quả
+  Tin Tức | Hình Ảnh | Liên Hệ | Chính Sách Bảo Mật
+
+CỘT 4 — Liên Hệ:
+  📞 1900 636 836
+  ✉ dangkyhoc@trungtamthanhcong.vn
+  🌐 trungtamthanhcong.vn
+  [Huy hiệu Đã Thông Báo Bộ Công Thương]
+
+Thanh dưới cùng: © 2025 Thành Công. Bảo lưu mọi quyền. | Đã xác nhận Bộ Công Thương
+```
+
+---
+
+### CÁC PHẦN TỬ NỔI CỐ ĐỊNH:
+```
+Thanh công cụ cố định bên phải (thanh dọc):
+  📞 Nút gọi điện (đỏ)
+  💬 Messenger (xanh dương)
+  💬 Zalo (xanh dương)
+  ↑  Nút cuộn lên đầu trang (xuất hiện sau khi cuộn 300px)
+
+Tất cả có chú thích tooltip khi rê chuột vào
+Hiệu ứng xuất hiện mượt: trượt vào từ bên phải sau 2 giây tải trang
+```
+
+---
+
+## ⚙️ YÊU CẦU KỸ THUẬT
+
+```
+Nền tảng: Next.js 14 App Router + TypeScript
+Styling: Tailwind CSS với biến CSS tùy chỉnh
+Phông chữ: Google Fonts — Playfair Display + Be Vietnam Pro + Space Mono
+Hiệu ứng động: Framer Motion — fade-up so le khi cuộn, hiệu ứng xuất hiện hero
+Biểu tượng: Lucide React
+Form: React Hook Form với xác thực đơn giản
+Ảnh: Next/Image với hiệu ứng shimmer chờ tải (dùng picsum.photos hoặc unsplash cho ảnh mẫu)
+
+Hiệu năng:
+  - Tải lười (lazy load) tất cả ảnh dưới vùng hiển thị đầu tiên
+  - Preload phông chữ trong thẻ <head>
+  - Cuộn trang mượt mà
+
+Điểm dừng thiết kế đáp ứng:
+  Điện thoại: < 768px (xếp chồng tất cả cột, menu hamburger)
+  Máy tính bảng: 768–1024px (2 cột nơi phù hợp)
+  Máy tính: > 1024px (bố cục đầy đủ như mô tả)
+
+Khả năng tiếp cận:
+  - Tất cả nút CTA có nhãn aria-label
+  - Độ tương phản màu sắc đạt chuẩn AA
+  - Trạng thái focus hiển thị rõ ràng
+  - Tất cả ảnh có thuộc tính alt mô tả
+```
+
+---
+
+## ✍️ HƯỚNG DẪN GIỌNG VĂN & NỘI DUNG
+
+```
+Ngôn ngữ: Tiếng Việt (chính), chuyên nghiệp nhưng thân thiện
+Giọng điệu: Chuyên gia có thẩm quyền × Người hướng dẫn gần gũi
+  — KHÔNG lạnh lùng kiểu doanh nghiệp
+  — KHÔNG quá bình thường hay xuề xòa
+  — PHONG CÁCH: Như một người thầy đáng tin đã dẫn dắt hơn 10.000 học viên thành công
+
+Từ khóa SEO cần lồng ghép tự nhiên:
+  "học lái xe TP.HCM", "trung tâm đào tạo lái xe Nhà Bè"
+  "hạng B tự động", "sát hạch lái xe 2026"
+  "bằng lái xe ô tô", "học phí học lái xe"
+
+Các giá trị cốt lõi cần nhấn mạnh xuyên suốt:
+  → Đầu tư một lần — tự do di chuyển cả đời
+  → Tỷ lệ đậu 92% — không phải may mắn, mà là phương pháp đào tạo bài bản
+  → 15 năm kinh nghiệm, hàng chục ngàn người đặt niềm tin
+  → Cabin điện tử hiện đại — học an toàn và tự tin trước khi ra đường thật
+```
+
+---
+
+## 🎯 TỐI ƯU HÓA CHUYỂN ĐỔI
+
+```
+Nút hành động chính: "Đăng Ký Học Ngay" — luôn hiển thị (nav cố định + hero + phần 9)
+Nút hành động phụ: "Xem Lịch Khai Giảng" — kích thích sự tò mò, không áp lực
+Yếu tố tạo sự khẩn cấp: Huy hiệu "Lớp tháng 3 sắp đầy — chỉ còn X chỗ" ở phần lịch học
+Tín hiệu tin tưởng:
+  - Huy hiệu cấp phép Bộ GTVT
+  - Huy hiệu Đã Thông Báo Bộ Công Thương
+  - Năm thành lập (2009)
+  - Số lượng học viên (hơn 10.000)
+  - Tỷ lệ đậu sát hạch (trên 92%)
+```
+
+---
+
+## 🚫 TUYỆT ĐỐI KHÔNG LÀM:
+- Không dùng header màu xanh ngọc/xanh lá như trang gốc
+- Không để màu nền be cát làm màu nền chủ đạo
+- Không dùng thanh điều hướng màu xanh lá
+- Không nhồi nhét form quá nhiều trường phía trên màn hình đầu tiên
+- Không dùng quá 3 màu thương hiệu nổi bật
+- Không dùng ảnh cổ phiếu nhàm chán — mô tả hình ảnh thực tế của trung tâm lái xe
+- Không lạm dụng emoji trong giao diện (chỉ dùng có chọn lọc trong phần nội dung)
+
+---
+
+## ✅ KẾT QUẢ CUỐI CÙNG CẦN CẢM GIÁC NHƯ SAU:
+**"Một trung tâm đào tạo lái xe Việt Nam cao cấp — học phí xứng đáng không hề rẻ, hoạt động từ năm 2009, thực sự quan tâm đến kết quả của học viên, và tự thể hiện mình với sự tự tin của người dẫn đầu thị trường — sạch sẽ, chuyên nghiệp, đáng tin cậy, với bộ nhận diện thương hiệu đỏ rõ ràng truyền tải sự quyết đoán và thẩm quyền."**
+
+Tham khảo phong cách bố cục của eduzin.framer.website + màu đỏ thương hiệu thực tế của Thành Công + typography chỉn chu của các trang giáo dục cao cấp quốc tế.
